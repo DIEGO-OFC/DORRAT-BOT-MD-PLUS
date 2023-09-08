@@ -59,14 +59,14 @@
     msgRetryCache,
     version,
     syncFullHistory: true,
-    browser: ['Shadow (jadibot 2.0)','Safari','1.0.0'],
+    browser: ['Shadow bot (jadibot 2.0)','Safari','1.0.0'],
     defaultQueryTimeoutMs: undefined,
     getMessage: async (key) => {
     if (store) {
     const msg = store.loadMessage(key.remoteJid, key.id)
     return msg.message && undefined
     } return {
-    conversation: 'Shadow Bv',
+    conversation: 'skid Bv',
     }
     }
     }
@@ -86,7 +86,7 @@
        if (!chatUpdate.type === 'notify') return   
        
        m = smsg(skmod, mek)   
-       require("./skid")(skmod, m, chatUpdate, mek)   
+       require("./main")(skmod, m, chatUpdate, mek)   
        } catch (e) {   
        console.log(e)   
        }   
@@ -207,8 +207,8 @@
         "title": botname,   
         "mediaType": 1,   
         "thumbnail": global.query,  
-        "mediaUrl": `https://wa.me/50664432500`,  
-        "sourceUrl": `https://wa.me/50664432500`  
+        "mediaUrl": `https://wa.me/5048930-2792`,  
+        "sourceUrl": `https://wa.me/5048930-2792`  
         }
         }  
         }, { quoted: null })
@@ -233,8 +233,8 @@
         "title": botname,   
         "mediaType": 1,   
         "thumbnail": global.query,  
-        "mediaUrl": `https://wa.me/50664432500`,  
-        "sourceUrl": `https://wa.me/50664432500`  
+        "mediaUrl": `https://wa.me/5048930-2792`,  
+        "sourceUrl": `https://wa.me/5048930-2792`  
         }
         }  
         }, { quoted: null })
@@ -259,8 +259,8 @@
         "title": botname,   
         "mediaType": 1,   
         "thumbnail": global.query,  
-        "mediaUrl": `https://wa.me/50664432500`,  
-        "sourceUrl": `https://wa.me/50664432500`  
+        "mediaUrl": `https://wa.me/5048930-2792`,  
+        "sourceUrl": `https://wa.me/5048930-2792`  
         }
         }  
         }, { quoted: null })
@@ -285,8 +285,8 @@
         "title": botname,   
         "mediaType": 1,   
         "thumbnail": global.query,  
-        "mediaUrl": `https://wa.me/50664432500`,  
-        "sourceUrl": `https://wa.me/50664432500`  
+        "mediaUrl": `https://wa.me/5048930-2792`,  
+        "sourceUrl": `https://wa.me/5048930-2792`  
         }
         }  
         }, { quoted: null })
@@ -311,8 +311,8 @@
         "title": botname,   
         "mediaType": 1,   
         "thumbnail": global.query,  
-        "mediaUrl": `https://wa.me/50664432500`,  
-        "sourceUrl": `https://wa.me/50664432500`  
+        "mediaUrl": `https://wa.me/5048930-2792`,  
+        "sourceUrl": `https://wa.me/5048930-2792`  
         }
         }  
         }, { quoted: null })
@@ -337,8 +337,8 @@
         "title": botname,   
         "mediaType": 1,   
         "thumbnail": global.query,  
-        "mediaUrl": `https://wa.me/+5218442114446`,  
-        "sourceUrl": `https://wa.me/+5218442114446`  
+        "mediaUrl": `https://wa.me/5048930-2792`,  
+        "sourceUrl": `https://wa.me/5048930-2792`  
         }
         }  
         }, { quoted: null })
@@ -411,10 +411,10 @@ const killJadibot = async (conn, m, command) => {
 try {
  if (m.isGroup) return m.reply(mess.priv)
  if (global.jadibotConn !== m.sender ) { 
- throw `*No eres un subbot*\n*Si quieres serbot manda el siguiente commando ${prefix}serbot*`
+ return m.reply(`*No eres un subbot*\n*Si quieres serbot manda el siguiente commando ${prefix}serbot*`)
  } else {
  conn.ws.close()
- throw `*tu session fue cerrada con exito*`
+ return m.reply(`*tu session fue cerrada con exito*`)
  }
  } catch (e) {
 m.reply(util.format(e))
