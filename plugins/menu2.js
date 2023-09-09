@@ -9,8 +9,8 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const Jimp = require('jimp')
 const os = require('os')
-const menu = (main, prefix, pushname, sender, m) => {
 
+//const menu = (main, prefix, pushname, sender, m) => {
 
 let user = global.db.data.users[m.sender]
 let totalreg = Object.keys(global.db.data.users).length
@@ -22,8 +22,8 @@ const locale = 'es';
 const week = d.toLocaleDateString(locale, {weekday: 'long'});
 const date = d.toLocaleDateString(locale, {day: 'numeric', month: 'long', year: 'numeric'});*/
 let wa = m.key.id.length > 21 ? 'Android' : m.key.id.substring(0, 2) == '3A' ? 'IOS' : 'whatsapp web'
-
-return `╔══════ ≪ •❈• ≫ ══════╗
+case 'menu2': {
+const menuxd = `╔══════ ≪ •❈• ≫ ══════╗
 ║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
 ║✾ Hola @${sender.split("@")[0]} 👋🏻 
 ║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
@@ -39,7 +39,7 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 ║✾ ʀᴀɴɢᴏ : ${user.role}
 ║✾ ᴇxᴘ : ${user.exp}
 ║ 
-║✾ ʀᴇɢɪsᴛʀᴀᴅᴏ : ${rtotalreg} 
+║✾ ʀᴇɢɪsᴛʀᴀᴅᴏ : ${rtotalreg} de ${totalreg}
 ║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
 ╚══════ ≪ •❈• ≫ ══════╝
 
@@ -74,7 +74,6 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 ├❥ᰰຼ ❏ ${prefix}serbot
 ├❥ᰰຼ ❏ ${prefix}jadibot
 ├❥ _(General un qr para convertirte el un sub bot)_
-├❥ᰰຼ ❏ ${prefix}sercode (conéctate sin escanear qr, te conectas mediante un código)
 ├❥ᰰຼ ❏ ${prefix}bots
 ├❥ _(comprueba si hay sub bot conectado)_
 *╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
@@ -83,7 +82,6 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 ├❥ᰰຼ ❏ ${prefix}play 
 ├❥ᰰຼ _(Titulo/nombre de la canción para descargar el audio)_
 ├❥ᰰຼ ❏ ${prefix}play2
-├❥ᰰຼ ❏ ${prefix}spotify
 ├❥ᰰຼ  _(Titulo/nonbre de la canción para descarga el video)_
 ├❥ᰰຼ ❏ ${prefix}yts 
 ├❥ᰰຼ  _(buscar los links para descarga el video)_
@@ -92,10 +90,7 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 ├❥ᰰຼ ❏ ${prefix}ytmp4
 ├❥ᰰຼ _(ingresa el link para descargar el video)_
 ├❥ᰰຼ ❏ ${prefix}gitclone
-├❥ᰰຼ _(ingresa el link del GitHub para descargar el repositorio)
-├❥ᰰຼ ❏ ${prefix}gitclone
-├❥ᰰຼ ❏ ${prefix}mega
-├❥ᰰຼ ❏ ${prefix}mediafire 
+├❥ᰰຼ _(ingresa el link del GitHub para descargar el repositorio)_
 ├❥ᰰຼ ❏ ${prefix}tiktok
 ├❥ᰰຼ (Ingresa el link del tiktok para descargar el video)
 ├❥ᰰຼ ❏ ${prefix}Facebook
@@ -124,13 +119,10 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 *╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*🔎⃐ＢＵＳＣＡＤＯＲＥＳ*️⃟ᬽ፝֟━*
 ├❥ᰰຼ ❏ ${prefix}google 
 ├❥ᰰຼ _(ingresa nombre de que quiera buscar)_
-├❥ᰰຼ ❏ ${prefix}cosplay
 ├❥ᰰຼ ❏ ${prefix}ia 
 ├❥ᰰຼ _(ingresa el texto de que quiera buscar con la (IA)_
 ├❥ᰰຼ ❏ ${prefix}imagen
 ├❥ᰰຼ _ingresa texto de la imagen que quiere buscar_
-├❥ᰰຼ ❏ ${prefix}pinterest
-├❥ᰰຼ ❏ ${prefix}otakudesu (ingresa un texto)
 ├❥ᰰຼ ❏ ${prefix}ss 
 ├❥ᰰຼ _(ingresa un link para manda captura)_
 *╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
@@ -180,13 +172,9 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 *╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*⃐🪙 ＥＣＯＮＯＭＩＡ*️⃟ᬽ፝֟━*
 ├❥ᰰຼ ❏ ${prefix}minar _(para minar exp)_
 ├❥ᰰຼ ❏ ${prefix}robar
-├❥ᰰຼ ❏ ${prefix}claim
-├❥ᰰຼ ❏ ${prefix}rob 
-├❥ᰰຼ ❏ ${prefix}dep
-├❥ᰰຼ ❏ ${prefix}beg
-├❥ᰰຼ ❏ ${prefix}crimen
+├❥ᰰຼ ❏ ${prefix}rob _(roban exp algun usuarios)_
 ├❥ᰰຼ ❏ ${prefix}trabajar
-├❥ᰰຼ ❏ ${prefix}work _(trabajar y ganar dólares)_
+├❥ᰰຼ ❏ ${prefix}work _(trabajar y ganas exp)_
 ├❥ᰰຼ ❏ ${prefix}buy _(comprar mas diamante (limit)_
 ├❥ᰰຼ ❏ ${prefix}afk
 *╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
@@ -198,18 +186,8 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 ├❥ᰰຼ ❏ ${prefix}attp
 *╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
 
-*╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*⃐✳️ Herramientas *️⃟ᬽ፝֟━*
-├❥ᰰຼ ❏ ${prefix}hd (responda a una imagen)
-├❥ᰰຼ ❏ ${prefix}emojimix
-├❥ᰰຼ ❏ ${prefix}jpg (responda a un sticker)
-├❥ᰰຼ ❏ ${prefix}toqr
-├❥ᰰຼ ❏ ${prefix}ofuscar
-├❥ᰰຼ ❏ ${prefix}nowa
-├❥ᰰຼ ❏ ${prefix}traducir
-*╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
-
 *╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*⃐👑ＯＷＮＥＲ*️⃟ᬽ፝֟━*
-├❥ _(Comlando explusivo para propietario/owner del bot)_
+├❥ _(Comando explusivo para propietario/owner del bot)_
 ├ *✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:
 ├❥ᰰຼ ❏ ${prefix}anticall
 ├❥ᰰຼ ❏ ${prefix}modojadibot
@@ -217,28 +195,16 @@ return `╔══════ ≪ •❈• ≫ ══════╗
 ├❥ᰰຼ ❏ ${prefix}bc (difusión a todos los chat)
 ├❥ᰰຼ ❏ ${prefix}bcgc (difusión solo a grupos)
 ├❥ᰰຼ ❏ ${prefix}join 
-├❥ᰰຼ ❏ ${prefix}setppbot (cambia la foto del bot) 
+├❥ᰰຼ ❏ ${prefix}setpp (cambia la foto del bot) 
 ├❥ᰰຼ ❏ ${prefix}public (modo público) 
 ├❥ᰰຼ ❏ ${prefix}privado (modo privado) 
 ├❥ᰰຼ ❏ ${prefix}getcase
 ├❥ᰰຼ ❏ $
 ├❥ᰰຼ ❏ >
 ├❥ᰰຼ ❏ => 
-*╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*`
+*╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*`.trim()
+m.reply(menuxd)
 }
 
-module.exports = { menu }
 
-function pickRandom(list) {
 
-    return list[Math.floor(list.length * Math.random())]
-
-}
-
- let file = require.resolve(__filename)
-fs.watchFile(file, () => {
-	fs.unwatchFile(file)
-	console.log(chalk.redBright(`Update ${__filename}`))
-	delete require.cache[file]
-	require(file)
-})
