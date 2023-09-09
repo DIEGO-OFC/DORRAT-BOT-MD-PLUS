@@ -1,6 +1,6 @@
 (async () => {
 require("./settings")
-const { default: makeWASocket, makeInMemoryStore, useMultiFileAuthState, DisconnectReason, proto , jidNormalizedUser,WAMessageStubType, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, msgRetryCounterMap, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = require("@whiskeysockets/baileys")
+const { default: makeWASocket, Browsers, makeInMemoryStore, useMultiFileAuthState, DisconnectReason, proto , jidNormalizedUser,WAMessageStubType, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, msgRetryCounterMap, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = require("@whiskeysockets/baileys")
 const { state, saveCreds } = await useMultiFileAuthState('./sessions')
 const chalk = require('chalk')
 const moment = require('moment')
@@ -69,22 +69,24 @@ const msgRetry = (MessageRetryMap) => { }
 const msgRetryCache = new NodeCache()
 let { version, isLatest } = await fetchLatestBaileysVersion();   
 
-const socketSettings = {
-printQRInTerminal: true,
-logger: pino({ level: 'silent' }),
-auth: { creds: state.creds, keys: makeCacheableSignalKeyStore(state.keys, pino({level: 'silent'})) },
-browser: [`ShadowBot-MD-V5`,'Safari','3.0'], 
-msgRetry,
-msgRetryCache,
-version,
-syncFullHistory: true,
-getMessage: async (key) => {
-if (store) {
-const msg = store.loadMessage(key.remoteJid, key.id)
-return msg.message && undefined
-} return {
-conversation: 'simple bot',
-}}}
+const socketSettings = { 
+     printQRInTerminal: true, 
+     logger: pino({ level: 'silent' }), 
+     auth: { creds: state.creds, keys: makeCacheableSignalKeyStore(state.keys, pino({level: 'silent'})) }, 
+     browser: Browsers.macOS("Shadow-Bot"), 
+     msgRetry, 
+     msgRetryCache, 
+     version, 
+     syncFullHistory: true, 
+     getMessage: async (key) => { 
+     if (store) { 
+     const msg = store.loadMessage(key.remoteJid, key.id) 
+     return msg.message && undefined 
+     } return { 
+     conversation: 'skid es gay', 
+     } 
+     } 
+ }
 
 const sock = makeWASocket(socketSettings)
 

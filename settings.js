@@ -22,7 +22,9 @@ global.getSizeMedia = getSizeMedia
 global.moment = moment
  global.language = 'es' // Aquí puede encontrar su idioma https://cloud.google.com/translate/docs/languages?hl=es-419 
  global.lolkeysapi = 'GataDios' //api lohum 
+global.keyxy = ['4ZFZiZK2Vw']
  global.imagen1 = fs.readFileSync('./media/menu.jpg') 
+global.query = imagen1
  global.imagen2 = fs.readFileSync('./media/menu2.jpg') 
  global.imagen3 = fs.readFileSync('./media/menu3.jpg') 
  global.noperfil = fs.readFileSync('./media/sinfoto.jpg') 
@@ -654,7 +656,7 @@ sindolares: 'Estas pobre, no tienes dolares XD',
        else return emotttt[results[0][0]];   
      },   
    };  
-  
+  global.multiplier = 999; // Cuanto más alto, más difícil subir de nivel | The higher, The harder levelup 
  global.work = [  
     "Trabajas como cortador de galletas y ganas",  
     "Trabaja para una empresa militar privada, ganando",  
