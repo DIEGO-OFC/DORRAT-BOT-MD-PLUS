@@ -3,6 +3,7 @@ require('../main.js')
  const fs = require("fs") 
  const { smsg, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom } = require('../libs/fuctions.js');  
  const path = require("path") 
+
  const chalk = require("chalk"); 
  const moment = require('moment-timezone')  
  const gradient = require('gradient-string')  
@@ -64,30 +65,74 @@ require('../main.js')
   "thumbnail": imagen1,   
   "sourceUrl": md}}},  
   { quoted: m})} 
+  async function levelxd(conn, m, sender, text, fkontak) {  
+  //const {canLevelUp, xpRange} = "../libs/fuctions2.js";    
+  let who;   
+     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender;   
+     else who = m.sender;   
+      if (!(who in global.db.data.users)) return m.reply(`✳️ ᴇʟ ᴜsᴜᴀʀɪᴏ ɴᴏ sᴇ ᴇɴᴄᴜᴇɴᴛʀᴀ ᴇɴ ᴍɪ ʙᴀsᴇ ᴅᴇ ᴅᴀᴛᴏs`)    
+   let user = global.db.data.users[m.sender]; 
+   if (!canLevelUp(user.level, user.exp, global.multiplier)) { 
+     let {min, xp, max} = xpRange(user.level, global.multiplier); 
+     return m.reply(` 
+ ╔════ *NIVEL* 
+ ➢ 👥 Nombre : @${who.split('@')[0]} 
+ ➢ 🧰 Nivel : *${user.level}*
+ ➢ 👑 XP : *${`${ConvertMiles(user.exp - min)}`} / ${`${ConvertMiles(xp)}`}* 
+ ╚══════════════ 
+ Te falta *${`${ConvertMiles(max - user.exp)}`}* de *XP* para subir de nivel 
   
+ ${wm} 
+ `);
+   } 
+   let before = user.level * 1; 
+   while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++; 
+   if (before !== user.level) { 
+     let teks = `🎊 Bien hecho @${who.split('@')[0]} Nivel:
+
+ ╔════  *LEVEL UP* 
+ ➢ 👥 Nivel anterior : *${before}* 
+ ➢ 🧰 Nivel actual : *${user.level}* 
+ ╚══════════════ 
+ *_Cuanto más interactúes con los bots, mayor será tu nivel_* 
+  
+ ${wm} 
+ `.trim(); 
+     try { 
+       m.reply(teks)
+
+     } catch (e) { 
+       m.reply(str); 
+     } 
+   } }
  async function rob(conn, m, sender, fkontak) { 
+   // let _user = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted.sender;
+
     const user = global.db.data.users[m.sender];  
   let time = global.db.data.users[m.sender].lastrob+ 7200000;   
      if (new Date() - global.db.data.users[m.sender].lastrob < 7200000)   
-       return reply(`*𝙴𝚜𝚝𝚊𝚜 𝚌𝚊𝚗𝚜𝚊𝚍𝚘, 𝚍𝚎𝚋𝚎𝚜 𝚍𝚎𝚜𝚌𝚊𝚗𝚜𝚊𝚛 𝚌𝚘𝚖𝚘 𝚖𝚒𝚗𝚒𝚖𝚘 ${msToTime(time - new Date())} 𝚙𝚊𝚛𝚊 𝚟𝚘𝚕𝚟𝚎𝚛 𝚊 robar!*`);   
+       return m.reply(`*𝙴𝚜𝚝𝚊𝚜 𝚌𝚊𝚗𝚜𝚊𝚍𝚘, 𝚍𝚎𝚋𝚎𝚜 𝚍𝚎𝚜𝚌𝚊𝚗𝚜𝚊𝚛 𝚌𝚘𝚖𝚘 𝚖𝚒𝚗𝚒𝚖𝚘 ${msToTime(time - new Date())} 𝚙𝚊𝚛𝚊 𝚟𝚘𝚕𝚟𝚎𝚛 𝚊 robar!*`);   
   if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : false;  
   else who = m.chat;  
     if (!who) {  
-      return reply('⚠️ Debes etiquetar a la persona que quieres robar');  
+      return m.reply('⚠️ Debes etiquetar a la persona que quieres robar');  
     }  
     try {  
       if (!(who in global.db.data.users)) {  
-        return reply('⚠️ El usuario no se encuentra en mi base de datos.');  
+        return m.reply('⚠️ El usuario no se encuentra en mi base de datos.');  
       }  
+      if (m.quoted?.sender) m.mentionedJid.push(m.quoted.sender);      
+        //  if (_user.startsWith(conn.user.jid.split`@`[0])) return m.reply("No puedes saquear a la bot :I");  
       const targetUser = global.db.data.users[who];  
       const dolares = Math.floor(Math.random() * 15) + 10;  
       const limit = Math.floor(Math.random() * 5) + 3;  
       const rob = Math.floor(Math.random() * 500);  
       if (targetUser.limit < 10) {  
-        return m.reply('El usuario no tiene suficientes recursos!');  
+        return m.reply('[😹] El usuario no tiene suficientes recursos, talvez tiene el dinero en su banco!'
+);  
       }  
       if (targetUser.dolares < 2) {  
-        return m.reply('El usuario no tiene suficientes recursos!');  
+        return m.reply('[😹] El usuario no tiene suficientes recursos, talvez tiene el dinero en su banco!');  
       }  
       user.dolares += dolares;  
       user.limit += limit;  
@@ -154,7 +199,7 @@ require('../main.js')
    let d = Math.floor(Math.random() * 20);      
     let time = global.db.data.users[m.sender].lastwork + 600000;      
     if (new Date() - global.db.data.users[m.sender].lastwork < 600000) {  
-      return reply(`*𝙴𝚜𝚝𝚊𝚜 𝚌𝚊𝚗𝚜𝚊𝚍𝚘, 𝚍𝚎𝚋𝚎𝚜 𝚍𝚎𝚜𝚌𝚊𝚗𝚜𝚊𝚛 𝚌𝚘𝚖𝚘 𝚖𝚒𝚗𝚒𝚖𝚘 ${msToTime(time - new Date())} 𝚙𝚊𝚛𝚊 𝚟𝚘𝚕𝚟𝚎𝚛 𝚊 𝚝𝚛𝚊𝚋𝚊𝚓𝚊𝚛!*`);  
+      return m.reply(`*𝙴𝚜𝚝𝚊𝚜 𝚌𝚊𝚗𝚜𝚊𝚍𝚘, 𝚍𝚎𝚋𝚎𝚜 𝚍𝚎𝚜𝚌𝚊𝚗𝚜𝚊𝚛 𝚌𝚘𝚖𝚘 𝚖𝚒𝚗𝚒𝚖𝚘 ${msToTime(time - new Date())} 𝚙𝚊𝚛𝚊 𝚟𝚘𝚕𝚟𝚎𝚛 𝚊 𝚝𝚛𝚊𝚋𝚊𝚓𝚊𝚛!*`);  
     }      
     //let pp = "galeria/menudorrat3.jpg";      
     m.reply(`*${pickRandom(global.work)} $${d}* *DOLARES*`);      
@@ -202,7 +247,7 @@ require('../main.js')
   const prem = 20000; 
   let time = global.db.data.users[m.sender].lastclaim + 86400000;  
   if (new Date() - global.db.data.users[m.sender].lastclaim < 86400000)  
-  return reply( `🎁 *Ya recogiste tu recompensa diaria*\n\n🕚 Vuelve en *${msToTime(time - new Date())}* `); 
+  return m.reply( `🎁 *Ya recogiste tu recompensa diaria*\n\n🕚 Vuelve en *${msToTime(time - new Date())}* `); 
   global.db.data.users[m.sender].exp += free; 
   m.reply(`  
   🎁 *RECOMPENSA DIARIA*  
@@ -210,12 +255,46 @@ require('../main.js')
   🆙 *XP* : +${free}`);  
   global.db.data.users[m.sender].lastclaim = new Date() * 1;  
   };
-  
+const growth = Math.pow(Math.PI / Math.E, 1.618) * Math.E * 0.75; 
+function xpRange(level, multiplier = global.multiplier || 1) { 
+   if (level < 0) throw new TypeError("level cannot be negative value"); 
+   level = Math.floor(level); 
+   let min = level === 0 ? 0 : Math.round(Math.pow(level, growth) * multiplier) + 1; 
+   let max = Math.round(Math.pow(++level, growth) * multiplier); 
+   return { 
+     min, 
+     max, 
+     xp: max - min, 
+   }; 
+ } 
+ function findLevel(xp, multiplier = global.multiplier || 1) { 
+   if (xp === Infinity) return Infinity; 
+   if (isNaN(xp)) return NaN; 
+   if (xp <= 0) return -1; 
+   let level = 0; 
+   do level++; 
+   while (xpRange(level, multiplier).min <= xp); 
+   return --level; 
+ } 
+function canLevelUp(level, xp, multiplier = global.multiplier || 1) { 
+   if (level < 0) return false; 
+   if (xp === Infinity) return true; 
+   if (isNaN(xp)) return false; 
+   if (xp <= 0) return false; 
+   return level < findLevel(xp, multiplier); 
+ }
  //función pickrandow 
  function pickRandom(list) { 
  return list[Math.floor(list.length * Math.random())] 
  } 
  //temporarily 
+    function ConvertMiles(number) { 
+   const exp = /(\d)(?=(\d{3})+(?!\d))/g; 
+   const rep = "$1."; 
+   let arr = number.toString().split("."); 
+   arr[0] = arr[0].replace(exp, rep); 
+   return arr[1] ? arr.join(".") : arr[0]; 
+ }   
  function msToTime(duration) {  
     var milliseconds = parseInt((duration % 1000) / 100),  
     seconds = Math.floor((duration / 1000) % 60),  
@@ -226,7 +305,7 @@ require('../main.js')
     seconds = seconds < 10 ? "0" + seconds : seconds;  
     return minutes + " m y " + seconds + " s ";  
  } 
- module.exports = { rob, reg, bal, work, mine, afk, buy, claim} 
+ module.exports = { rob, reg, bal, work, mine, afk, buy, claim, levelxd} 
   
  let file = require.resolve(__filename) 
  fs.watchFile(file, () => { 
