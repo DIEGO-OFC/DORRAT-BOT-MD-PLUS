@@ -6,7 +6,7 @@
   const FormData = require('form-data')  
   const fs = require('fs')   
   const fetch = require('node-fetch')
-  const {rob, bal, reg, work, mine, buy, afk, claim, levelxd} = require('./economy/economy.js')
+  const {rob, bal, reg, work, mine, buy, afk, claim, levelxd, tranferSdw, quitardolares, addDolares, cazar} = require('./economy/economy.js')
   const {toqr} = require('./extras/extras.js')
 
   const axios = require('axios')  
@@ -15,9 +15,9 @@
   const util = require('util')  
   const createHash = require('crypto') 
   const mimetype = require("mime-types")  
-  const {game1} = require('./libs/games.js')
+  const {game1, gameMate} = require('./libs/games.js')
   const webp = require("node-webpmux")
-  const {yt, acortar, google, imagen, tran, tts, ia, ssw} = require('./busc/buscadores.js')
+  const {yt, acortar, google, imagen, tran, tts, ia, ssw, kataAnime, planetnime} = require('./busc/buscadores.js')
   const Jimp = require('jimp') 
   const { File } = require("megajs") 
   const scp1 = require('./libs/scraper')   
@@ -341,6 +341,12 @@ const { play } = require('./plugins/play.js')
  case 'acortar': 
  await acortar(conn, m, text, command)   
  break 
+ case 'mangainfo': {
+kataAnime(conn, m, text, command)}
+break
+case 'animeplanet': {
+planetnime(conn, m, text, args, command) }
+break
  case 'google': {       
  await google(conn, m, text, command)} 
  break 
@@ -384,7 +390,10 @@ const { play } = require('./plugins/play.js')
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   await state(conn, m, speed, sender, fkontak)   
   break  
-  
+  case 'quitardolares': {
+if (!isCreator) return conn.sendMessage(from, { text: info.owner }, { quoted: msg });   
+quitardolares(conn, m, sender, text, args, command)}
+break
   case 'menu': case 'help':  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   conn.sendMessage(from, { text: menu(conn, prefix, pushname, sender, m),    
@@ -474,7 +483,10 @@ const { play } = require('./plugins/play.js')
   let bang = m.message.extendedTextMessage.contextInfo.stanzaId  
   return conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: bang, participant: delet }})}  
   break    
-  
+  case 'reset': {
+   if (!isCreator) return conn.sendMessage(from, { text: info.owner }, { quoted: msg });     
+  tranferSdw(conn, m, sender, text, command)}
+ break
   case 'public': case 'publico': {  
   if (!isCreator) return reply(info.owner)  
   conn.public = true  
@@ -485,7 +497,9 @@ const { play } = require('./plugins/play.js')
   conn.public = false  
   reply('✅ Cambio con exito a uso privado')}  
   break          
-  
+  case 'math': {
+  gameMate(conn, m, command, text, quoted)      }
+break
   case 'autoadmin': case 'tenerpoder': {  
   if (!m.isGroup) return reply(info.group)  
   if (!isCreator) return reply(info.owner)  
@@ -969,20 +983,14 @@ const { play } = require('./plugins/play.js')
    break 
   
   case 'ytmp4': case 'ytvideo': {
-if (global.db.data.users[m.sender].dolares < 1) return reply(info.sindolares)  
-if (global.db.data.users[m.sender].registered < true) return reply(info.registra)
-const mp = require('./libs/ytdl2')
-if (args.length < 1 || !isUrl(text) || !mp.isYTUrl(text)) return reply(`*Que esta buscado?*\n\n*Ejemplo:*\n${prefix + command} https://youtu.be/7ouFkoU8Ap8?si=Bvm3LypvU_uGv0bw`)
-conn.sendMessage(from, { text: `*Aguarde un momento*\n\nᴱˡ ᵛᶦᵈᵉᵒ ᵖᵘᵉᵈᵉ ᵗᵃʳᵈᵃ ᵉⁿᵗʳᵉ ⁵ ᵒ ¹⁰ ᵐᶦⁿᵘᵗᵒˢ ᵉˡ ᵉⁿᵛᶦᵃˢᵉ ᵗᵉⁿᵈʳᵃ́ ᵖᵃᶜᶦᵉⁿᶜᶦᵃ` }, { quoted: fdoc });    
-const vid = await mp.mp4(text)
-const ytc = `*❏ Título :* ${vid.title} 
-*❏ Duración :* ${vid.duracion}
-*❏ Subido :* ${vid.date}
-*❏ calidad :* ${vid.quality}`
-await conn.sendMessage(from, {video: {url : vid.videoUrl}, caption: ytc }, {quoted:m})
-db.data.users[m.sender].dolares -= 5
-reply(info.dolares5)}
-break
+
+if (!text) return reply('*ingrese un link?*');
+reply('*Enviando, esto puede tatdar*')
+const vns = await fetchJson(`https://api.brizaloka-api.tk/sociais/ytplaymp4?apikey=brizaloka&query=${text}`);
+const xvn = vns.video
+conn.sendMessage(from, { video: { url: xvn }}, {quoted: m}); }
+break 
+
   
   case 'gitclone':  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
@@ -1287,8 +1295,14 @@ case 'rob': case 'robar': {
   case 'sound161':  
   const DEV = await getBuffer(`https://github.com/DGXeon/Tiktokmusic-API/raw/master/tiktokmusic/${command}.mp3`)  
   await shadow.sendMessage(m.chat, { audio: DEV, mimetype: 'audio/mp4', ptt: true }, { quoted: m })       
-  break          
+  break 
+   case 'cazar': {
+   cazar(conn, m, sender, text, fkontak)}
+   break
    case 'dep': case 'depositar': { 
+  if (text.includes("-")) {
+ return m.reply("No utilice *-**");
+} 
  const db = require('./libs/database/database.js') 
   let who;  
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender;  
@@ -1512,9 +1526,12 @@ case 'bal': case 'balance': case 'banco': {
   
  break 
  case 'retirar': case 'retirardinero': { 
+  if (text.includes("-")) {
+ return m.reply("No utilice *-**");
+} 
  const db = './libs/database/database.js'; 
   let user = global.db.data.users[m.sender]; if (!text) return m.reply('*[❌] Ingresa la cantidad de dinero que deseas Retirar.*');  
-  if (text == '--all') {  
+ if (text == '--all') {  
   let count = parseInt(user.bank);  
   user.bank -= count * 1  
   user.dolares += count * 1  
@@ -1636,7 +1653,28 @@ break
 case 'level': case 'levelup': case 'lvl': { 
  await levelxd(conn, m, sender, text, fkontak)} 
  break
-;
+case 'addmoney': {
+if (!isCreator) return conn.sendMessage(from, { text: info.owner }, { quoted: msg }); 
+addDolares(conn, m, sender, text, command)}
+break
+case "hola" : {
+
+  try {
+
+  m.reply("Hola " + m.pushName);
+
+ } catch (e) {
+
+    m.reply("*🚩 Error :* " + new Error(e).message);
+
+}
+
+}
+
+break;
+
+
+
  
   
  function msToTime(duration) {   
