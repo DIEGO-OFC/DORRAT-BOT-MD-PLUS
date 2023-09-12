@@ -29,7 +29,32 @@ for (let i of search.all) {
 await conn.sendMessage(from, { image: { url: search.all[0].thumbnail }, caption: teks }, { quoted: fkontak });
 await conn.sendMessage(from, {text: info.result, edit: key}, { quoted: fkontak })
 }
+async function planetnime(conn, m, text, args, command) {
+  const translate = require('@vitalets/google-translate-api');
+  if (!args[0]) return m.reply(`*[❗] INGRESE EL NAME DEL ANIME QUE DESEA BUSCAR*`);
+  try {
 
+    const xn = await fetch(`https://p7api.xyz/api/anime?nome=${text}&apikey=${keyp7}`)
+    const gPlay = await xn.json();
+
+    if (gPlay.error) {
+      throw new Error(gPlay.error);
+    }
+
+    let caption = `*⊜ RESULTADOS🔎*\n`;
+    for (let x of gPlay.resultado) {
+      caption += `🔍 titulo: 
+${x.titulo}
+
+⛓️ Link: ${x.link}  
+🖼️ Imagen: ${x.capa}
+  `;
+    }
+    conn.sendMessage(m.chat, {text: caption}, {quoted: m});
+  } catch (error) {
+    await m.reply('*[❗𝐈𝐍𝐅𝐎❗] ERROR, POR FAVOR VUELVE A INTENTARLO*');
+  }
+};
 async function acortar(conn, m, text, command) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
  if (!text) return m.reply(`*Ingresa un link para acortar!*`)
@@ -38,7 +63,40 @@ if (!shortUrl1) return m.reply(`*⚠️ ERROR*`)
 let done = `*❇️ LINK ACORTADO*\n\n*➵ link: ${text}*\n➵ *Link Acortado: ${shortUrl1}*`
 m.reply(done)
 }
-
+async function kataAnime(conn, m, text, command) {
+ const translate = require('@vitalets/google-translate-api');  
+if (!text) return m.reply(`*Ingresa un texto!*`)
+ m.reply('Enviando tu manga') 
+ let res = await fetch('https://api.jikan.moe/v4/manga?q=' + text) 
+ if (!res.ok) throw 'xd' 
+ let json = await res.json() 
+ let { chapters, url, type, score, scored, scored_by, rank, popularity, members, background, status, volumes, synopsis, favorites } = json.data[0] 
+ let judul = json.data[0].titles.map(jud => `${jud.title} [${jud.type}]`).join('\n'); 
+ let xnuvers007 = json.data[0].authors.map(Xnuvers007 => `${Xnuvers007.name} (${Xnuvers007.url})`).join('\n'); 
+ let genrenya = json.data[0].genres.map(xnvrs007 => `${xnvrs007.name}`).join('\n'); 
+    let bake2 = await translate(`${background}`, {to: "es", autoCorrect: true});
+ let bake3 = await translate(`${synopsis}`, {to: "es", autoCorrect: true});
+ let animeingfo = `📚 Titulo: ${judul} 
+ 📑 Capitulo: ${chapters} 
+ ✉️ Transmisi: ${type} 
+ 🗂 Status: ${status} 
+ 😎 Genre: ${genrenya} 
+ 🗃 Volumes: ${volumes} 
+ 🌟 Favorite: ${favorites} 
+ 🧮 Puntaje: ${score} 
+ 🧮 Anotado: ${scored} 
+ 🧮 Anotado por: ${scored_by} 
+ 🌟 Estrella: ${rank} 
+ 🤩 Popularidad: ${popularity} 
+ 👥 Miembros: ${members} 
+ ⛓️ Url: ${url} 
+ 👨‍🔬 Author: ${xnuvers007} 
+ 📝 Fondo: ${bake2.text} 
+ 💬 Sinopsis: ${bake3.text} 
+ ` 
+ m.reply(animeingfo)
+ }
+ 
 async function google(conn, m, text, command) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
 if (!text) return m.reply(`*Ejemplo:*\n${prefix + command} gatito`)
@@ -91,13 +149,23 @@ const texttospeechurl = SpeakEngine.getAudioUrl(texttosay, {lang: "es", slow: fa
 conn.sendMessage(m.chat, { audio: { url: texttospeechurl }, contextInfo: { "externalAdReply": { "title": botname, "body": ``, "previewType": "PHOTO", "thumbnailUrl": null,"thumbnail": imagen1, "sourceUrl": md, "showAdAttribution": true}}, seconds: '4556', ptt: true, mimetype: 'audio/mpeg', fileName: `error.mp3` }, { quoted: m })}
 
 async function ia(conn, m, text, quoted) {
-if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
-if (global.db.data.users[m.sender].limit < 1) return m.reply(info.endLimit)
-if (!text) return conn.sendMessage(m.chat, { text: `*INGRESE EL TEXTO DE LOS QUE QUIERE BUSCAR?*` }, { quoted: m })
-await conn.sendPresenceUpdate('composing', m.chat)
-let tioress = await fetch(`https://api.lolhuman.xyz/api/openai-turbo?apikey=${lolkeysapi}&text=${text}`)
-let hasill = await tioress.json()
-m.reply(`${hasill.result}`.trim())   
+           if (!text) return m.reply(`*ingresa un texto para hablar con chatgpt*`) 
+           try {      
+          let tioress = await fetch(`https://api.lolhuman.xyz/api/openai-turbo?apikey=${lolkeysapi}&text=${text}`)  
+          let hasill = await tioress.json()  
+          m.reply(`${hasill.result}`.trim())     
+          } catch {
+          try {
+          let mygpt = await fetch(`https://vihangayt.me/tools/chatgpt4?q=${text}`) 
+          let _result = await mygpt.json() 
+          m.reply(`${_result.data}`)
+          } catch {
+ let mygpt2 = await fetch(`https://vihangayt.me/tools/chatgpt?q=${text}`) 
+
+let _result2 = await mygpt2.json()
+m.reply(`${_result2.data}`)  
+         } }
+
 db.data.users[m.sender].limit -= 1
 }
 
@@ -108,7 +176,7 @@ conn.fakeReply(m.chat, `⏳ *Aguarde un momento....*`, '0@s.whatsapp.net', 'No h
 let krt = await scp1.ssweb(q)
 conn.sendMessage(m.chat, {image:krt.result, caption: info.result}, {quoted:m})}
 
-module.exports = {yt, acortar, google, imagen, tran, tts, ia, ssw}
+module.exports = {yt, acortar, google, imagen, tran, tts, ia, ssw, kataAnime, planetnime}
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
