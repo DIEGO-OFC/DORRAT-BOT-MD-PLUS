@@ -21,7 +21,9 @@ global.getBuffer = getBuffer
 global.getSizeMedia = getSizeMedia
 global.moment = moment
  global.language = 'es' // Aquí puede encontrar su idioma https://cloud.google.com/translate/docs/languages?hl=es-419 
- global.keyp7 = ['HVYBvnPn']
+ //global.keyp7 = ['HVYBvnPn']
+global.xanax = 'xanax-apis'
+global.keyp7 = '6WwQYcXs'
  global.lolkeysapi = 'GataDios' //api lohum 
 global.keyxy = ['4ZFZiZK2Vw']
  global.imagen1 = fs.readFileSync('./media/menu.jpg') 
