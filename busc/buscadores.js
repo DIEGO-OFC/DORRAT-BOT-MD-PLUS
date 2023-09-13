@@ -29,12 +29,14 @@ for (let i of search.all) {
 await conn.sendMessage(from, { image: { url: search.all[0].thumbnail }, caption: teks }, { quoted: fkontak });
 await conn.sendMessage(from, {text: info.result, edit: key}, { quoted: fkontak })
 }
-async function planetnime(conn, m, text, args, command) {
-  const translate = require('@vitalets/google-translate-api');
+
+  
+  async function planetnime(conn, m, text, args, command) {
+const translate = require('@vitalets/google-translate-api');
   if (!args[0]) return m.reply(`*[❗] INGRESE EL NAME DEL ANIME QUE DESEA BUSCAR*`);
   try {
 
-    const xn = await fetch(`https://p7api.xyz/api/anime?nome=${text}&apikey=${keyp7}`)
+    const xn = await fetch(`https://xanax-apis.online/api/animes?q=${text}&apitoken=${xanax}`)
     const gPlay = await xn.json();
 
     if (gPlay.error) {
@@ -47,14 +49,14 @@ async function planetnime(conn, m, text, args, command) {
 ${x.titulo}
 
 ⛓️ Link: ${x.link}  
-🖼️ Imagen: ${x.capa}
+🖼️ Imagen: ${x.image}
   `;
     }
     conn.sendMessage(m.chat, {text: caption}, {quoted: m});
   } catch (error) {
     await m.reply('*[❗𝐈𝐍𝐅𝐎❗] ERROR, POR FAVOR VUELVE A INTENTARLO*');
   }
-};
+}
 async function acortar(conn, m, text, command) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
  if (!text) return m.reply(`*Ingresa un link para acortar!*`)
@@ -160,11 +162,18 @@ async function ia(conn, m, text, quoted) {
           let _result = await mygpt.json() 
           m.reply(`${_result.data}`)
           } catch {
+          try {
  let mygpt2 = await fetch(`https://vihangayt.me/tools/chatgpt?q=${text}`) 
 
 let _result2 = await mygpt2.json()
 m.reply(`${_result2.data}`)  
-         } }
+ } catch {
+let mygpt8 = await fetch(`https://xanax-apis.online/ias/bard?q=${text}&apitoken=${xanax}`) 
+
+let _result5 = await mygpt8.json()
+
+m.reply(`${_result5.resultado}`)       
+         } }}
 
 db.data.users[m.sender].limit -= 1
 }
