@@ -986,7 +986,7 @@ break
 
 if (!text) return reply('*ingrese un link?*');
 reply('*Enviando, esto puede tatdar*')
-const vns = await fetchJson(`https://api.brizaloka-api.tk/sociais/ytplaymp4?apikey=brizaloka&query=${text}`);
+const vns = await fetchJson(`https://xanax-apis.online/youtube/mp4?url=${text}&apitoken=${xanax}`);
 const xvn = vns.video
 conn.sendMessage(from, { video: { url: xvn }}, {quoted: m}); }
 break 
@@ -1671,11 +1671,26 @@ case "hola" : {
 
 }
 
-break;
-
-
-
+break
+case 'gato': case 'cat': {
+let res = await fetch('https://api.thecatapi.com/v1/images/search')
+let json = await res.json()
+conn.sendMessage(m.chat, {image: {url: json[0].url}, caption: 'By Diego-OFC'}, {quoted: m})}
+break
+case 'dog': case 'perro': {
+let res = await fetch(`https://dog.ceo/api/breeds/image/random`) 
  
+ let json = await res.json() 
+ 
+ conn.sendMessage(m.chat, {image: {url: json.message }}, {quoted: m})}
+break
+case 'onlyfotos': case 'onlyfansfoto': {
+ let res = await fetch(`https://xanax-apis.online/api/onlyfans/fotos?apitoken=${xanax}`) 
+  
+ let json = await res.json() 
+  
+ conn.sendMessage(m.chat, {image: {url: json.resultado }}, {quoted: m})}
+break
   
  function msToTime(duration) {   
      var milliseconds = parseInt((duration % 1000) / 100),   
