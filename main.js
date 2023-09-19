@@ -6,7 +6,7 @@
   const FormData = require('form-data')  
   const fs = require('fs')   
   const fetch = require('node-fetch')
-  const {rob, bal, reg, work, mine, buy, afk, claim, levelxd, tranferSdw, quitardolares, addDolares, cazar} = require('./economy/economy.js')
+  const {rob, bal, reg, work, mine, buy, afk, claim, levelxd, tranferSdw, quitardolares, addDolares, cazar, lb} = require('./economy/economy.js')
   const {toqr} = require('./extras/extras.js')
 
   const axios = require('axios')  
@@ -35,7 +35,7 @@ const { play } = require('./plugins/play.js')
   const color = (text, color) => {   
   return !color ? chalk.cyanBright(text) : color.startsWith('#') ? chalk.hex(color)(text) : chalk.keyword(color)(text)} // Si no hay color, utilizar el color celeste brillante (por defecto)  
   const { smsg, fetchBuffer,  buffergif, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom, remini, participantes, pickRandom, spotifydl, pepe, webp2mp4File } = require('./libs/fuctions')  
-  const { default: makeWASocket, proto } = require("@whiskeysockets/baileys")   
+ const { WaMessageStubType, areJidsSameUser, downloadContentFromMessage, generateWAMessageContent, generateWAMessageFromContent, generateWAMessage, prepareWAMessageMedia, relayMessage} = require('@whiskeysockets/baileys'); // Importa los objetos 'makeWASocket' y 'proto' desde el módulo '@whiskeysockets/baileys'
   const { ytmp4, ytmp3, ytplay, ytplayvid } = require('./libs/youtube')  
   const { menu } = require('./plugins/menu.js')  
   const { mediafireDl } = require('./libs/mediafire.js')  
@@ -112,10 +112,11 @@ const { play } = require('./plugins/play.js')
   mentions.push(msd[i])}}}  
   
   // ‿︵‿︵ʚɞ『 GRUPO 』ʚɞ‿︵‿︵  
-  const groupMetadata = m.isGroup ? await conn.groupMetadata(from) : '' // Obtiene información del grupo  
-  const groupName = m.isGroup ? groupMetadata.subject : '' // Nombre del grupo  
-  const participants = m.isGroup ? await groupMetadata.participants : '' // Lista de participantes del grupo  
-  const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : '' // // Lista de administradores del grupo  
+        const groupMetadata = m.isGroup ? await conn.groupMetadata(from) : '' 
+   const groupName = m.isGroup ? groupMetadata.subject : ''  
+   const participants = m.isGroup ? await groupMetadata.participants : ''
+     const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : '' 
+  // // Lista de administradores del grupo  
   
   const isBotAdmins = m.isGroup ? groupAdmins.includes(numBot) : false // Verifica si el bot es un administrador del grupo  
   const isGroupAdmins = m.isGroup ? groupAdmins.includes(userSender) : false // Verifica si el remitente del mensaje es un administrador del grupo  
@@ -145,7 +146,21 @@ const { play } = require('./plugins/play.js')
   function pickRandom(list) {  
   return list[Math.floor(list.length * Math.random())]  
   }  
-  
+  if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) { 
+ let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')] 
+ let { text, mentionedJid } = hash 
+ let messages = await generateWAMessage(m.chat, { text: text, mentions: mentionedJid }, {userJid: conn.user.id, 
+ quoted: m.quoted && m.quoted.fakeObj 
+ }) 
+ messages.key.fromMe = areJidsSameUser(m.sender, conn.user.id) 
+ messages.key.id = m.key.id 
+ messages.pushName = m.pushName 
+ if (m.isGroup) messages.participant = m.sender 
+ let msg = {...chatUpdate, messages: [proto.WebMessageInfo.fromObject(messages)], 
+ type: 'append' 
+ } 
+ conn.ev.emit('messages.upsert', msg)} 
+ 
   //base de datos  
   let user = global.db.data.users[m.sender]  
   let chats = global.db.data.users[m.chat]  
@@ -677,29 +692,34 @@ break
   conn.sendText(m.chat, `https://chat.whatsapp.com/${response}`, m, { detectLink: true })}  
   break  
   
+
   case 'block': case 'bloquear': {  
   if (!isCreator) return reply(info.owner)  
   reply(`*El usuario fue bloqueado del bot*`)  
   let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'  
   await conn.updateBlockStatus(users, 'block')}  
   break  
-  
-  case 'reiniciar': case 'restart': { 
-  if (!isCreator) return reply(info.owner) 
- if (!process.send) { 
-   await m.reply("🔄 Reiniciando Bot...\n Espere un momento"); 
-   process.send("reset"); 
- } 
- } 
- break 
-  
+
+
   case 'unblock': case 'desbloquear': {  
   if (!isCreator) return reply(info.owner)  
   reply(`*El usuario fue desbloqueado*`)  
   let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'  
   await conn.updateBlockStatus(users, 'unblock')}  
-  break  
-  
+  break
+ /* case 'kill2':
+//const pm2 = require('pm2');
+if (!isCreator) return reply(info.owner)
+                  const pm2 = `pm2 kill`
+                   reply('A mimir...')
+	               exec(pm2, (err, stdout) => {
+		           if(err) return conn.sendMessage(from, {text: "Comando inexistente"}, {quoted: m})
+
+		           if (stdout) {
+			       conn.sendMessage(from, stdout, text, {quoted: mek})
+} 
+                   })
+                  break*/
   case 'banchat': {  
   if (!m.isGroup) return reply(info.group)   
   if (!isBotAdmins) return reply(info.botAdmin)  
@@ -765,12 +785,13 @@ break
   break  
   
   case 'simi': case 'bot': {  
-  if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
+     if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   if (!text) return conn.sendMessage(from, { text: `*INGRESE UN TEXTO PARA HABLAR CONMIGO*` }, { quoted: msg })  
   await conn.sendPresenceUpdate('composing', m.chat)  
-  let anu = await fetchJson(`https://api.simsimi.net/v2/?text=${text}&lc=es&cf=false`)  
-  let res = anu.success;  
+  let anu = await fetchJson(`https://api.lolhuman.xyz/api/simi?apikey=${lolkeysapi}&text=${text}&badword=true`)  
+  let res = anu.result;  
   m.reply(res)}  
+
   break   
  case 'ia': case 'chatgpt': 
  await ia(conn, m, text, quoted) 
@@ -959,8 +980,8 @@ break
     thumbnail: fs.readFileSync(`./media/menu.jpg`) ,  
     mediaUrl:`https://web-shadow.vercel.app/`,   
   sourceUrl: `https://web-shadow.vercel.app/` }}}, {quoted: m}) 
-  db.data.users[m.sender].dolares -= 5 
-  reply(info.dolares5) 
+  db.data.users[m.sender].dolares -= 8
+  reply(info.dolares8) 
   } 
   break  
  case 'ytplay': { 
@@ -985,10 +1006,9 @@ break
   case 'ytmp4': case 'ytvideo': {
 
 if (!text) return reply('*ingrese un link?*');
-reply('*Enviando, esto puede tatdar*')
-const vns = await fetchJson(`https://xanax-apis.online/youtube/mp4?url=${text}&apitoken=${xanax}`);
-const xvn = vns.video
-conn.sendMessage(from, { video: { url: xvn }}, {quoted: m}); }
+reply(`enviando video, porfavor espera :D`)
+const url = `https://xanax-apis.online/youtube/mp4?url=${text}&apitoken=${xanax}`      
+conn.sendMessage(from, { video: { url: url}, mimetype: 'video/mp4', fileName: `Shadow.mp4` }, { quoted: m })}
 break 
 
   
@@ -1691,6 +1711,16 @@ case 'onlyfotos': case 'onlyfansfoto': {
   
  conn.sendMessage(m.chat, {image: {url: json.resultado }}, {quoted: m})}
 break
+case 'printcode': {
+ let res = `https://api.lolhuman.xyz/api/carbon?apikey=${lolkeysapi}&code=print(${text})&language=javascript`
+ 
+ conn.sendMessage(m.chat, {image: {url: res }}, {quoted: m})}
+break
+case 'lb': 
+lb(conn, participants, args, m)
+break
+
+
   
  function msToTime(duration) {   
      var milliseconds = parseInt((duration % 1000) / 100),   
