@@ -29,7 +29,25 @@ for (let i of search.all) {
 await conn.sendMessage(from, { image: { url: search.all[0].thumbnail }, caption: teks }, { quoted: fkontak });
 await conn.sendMessage(from, {text: info.result, edit: key}, { quoted: fkontak })
 }
-
+async function pinteresdw(conn, m, text, args, commands) {
+const pim = `https://xanax-apis.online/api/pinterest?text=${text}&apitoken=xanax-apis`
+m.reply('cargando, por favor espera')
+conn.sendMessage(m.chat, {image: {url: pim}}, {quoted: m})}
+async function aptoide(conn, m, text, args, command) {
+let { search, download } = require('aptoide-scraper') 
+     if (!text) throw '*❗Que vas a buscar*' 
+       try {      
+      let searchA = await search(text);  
+      let data5 = await download(searchA[0].id);  
+      let response = `📲 *Descargador de Aptoide* 📲\n\n📌 *Nombre:* ${data5.name}\n📦 *Package:* ${data5.package}\n🕒 *Última actualización:* ${data5.lastup}\n📥 *Tamaño:* ${data5.size}`  
+      await conn.sendMessage(m.chat, {image: {url: data5.icon}, caption: response}, {quoted: m});  
+      if (data5.size.includes('GB') || data5.size.replace(' MB', '') > 999) {  
+      return await conn.sendMessage(m.chat, {text: '*[ ⛔ ] El archivo es demasiado pesado por lo que no se enviará.*'}, {quoted: m});  
+      }  
+      await conn.sendMessage(m.chat, {document: {url: data5.dllink}, mimetype: 'application/vnd.android.package-archive', fileName: data5.name + '.apk', caption: null}, {quoted: m});  
+      } catch {  
+      throw `*[❗] Error, no se encontrarón resultados para su búsqueda.*`;  
+      }}     
   
   async function planetnime(conn, m, text, args, command) {
 const translate = require('@vitalets/google-translate-api');
@@ -116,6 +134,7 @@ m.reply(teks)})
 async function imagen(conn, m, text, command) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
 if (!text) return m.reply(`*Que esta buscando?*\n*Ejemplo:*\n${prefix + command} gatito`)
+m.reply('cargando, por favor espera')
 image = await fetchJson(`https://api.akuari.my.id/search/googleimage?query=${text}`)
 n = image.result
 images = n[Math.floor(Math.random() * n.length)]
@@ -185,7 +204,7 @@ conn.fakeReply(m.chat, `⏳ *Aguarde un momento....*`, '0@s.whatsapp.net', 'No h
 let krt = await scp1.ssweb(q)
 conn.sendMessage(m.chat, {image:krt.result, caption: info.result}, {quoted:m})}
 
-module.exports = {yt, acortar, google, imagen, tran, tts, ia, ssw, kataAnime, planetnime}
+module.exports = {yt, acortar, google, imagen, tran, tts, ia, ssw, kataAnime, planetnime, aptoide, pinteresdw}
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
