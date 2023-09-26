@@ -13,10 +13,11 @@
   "dependencies": {
    "megajs": "1.1.3",
    "@whiskeysockets/baileys": "github:WhiskeySockets/Baileys",
-   "@bochilteam/scraper": "^4.2.4",
+   "aptoide-scraper": "^1.0.1",
   "@xct007/frieren-scraper": "0.0.2",     "@vitalets/google-translate-api": "^8.0.0",
 "awesome-phonenumber": "^5.10.0",
    "chalk": "^4.1.2",
+
    "gradient-string": "^2.0.2",
    "human-readable": "^0.2.1",
    "file-type": "^16.5.3",
@@ -27,8 +28,7 @@
    "api-dylux": "^1.2.2",
    "performance-now": "^2.1.0",  
    "fluent-ffmpeg": "^2.1.2",
-   "node-fetch": "2.x",
-   "moment": "^2.29.4",
+   "node-fetch": "2.x", 
    "moment-timezone": "^0.5.43",
    "yargs": "^17.2.1",
    "fs": "0.0.1-security",
@@ -49,9 +49,9 @@
    "qrcode-terminal": "^0.12.0", 
    "spotifydl-x": "github:darlyn1234/SpotidyModule",
    "yt-search": "^2.10.2", 
-   "node-youtube-music": "^0.8.3",
+  
    "youtube-yts": "^2.0.0",
-   "ytdl-core": "^4.11.4",
-   "youtubedl-core": "^4.11.4"
+    "ytdl-core": "github:khlevon/node-ytdl-core#v4.11.4-patch.2"
+
   }
 }
