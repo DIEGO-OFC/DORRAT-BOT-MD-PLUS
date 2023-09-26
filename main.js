@@ -2,12 +2,11 @@
   const { exec, spawn, execSync } = require("child_process"); 
   const chalk = require('chalk')   
   const os = require('os')   
-
   const FormData = require('form-data')  
   const fs = require('fs')   
   const fetch = require('node-fetch')
   const {rob, bal, reg, work, mine, buy, afk, claim, levelxd, tranferSdw, quitardolares, addDolares, cazar, lb} = require('./economy/economy.js')
-  const {toqr} = require('./extras/extras.js')
+  const {toqr, fakechat} = require('./extras/extras.js')
 
   const axios = require('axios')  
   const cheerio = require('cheerio')  
@@ -17,14 +16,14 @@
   const mimetype = require("mime-types")  
   const {game1, gameMate} = require('./libs/games.js')
   const webp = require("node-webpmux")
-  const {yt, acortar, google, imagen, tran, tts, ia, ssw, kataAnime, planetnime} = require('./busc/buscadores.js')
+  const {yt, acortar, google, imagen, tran, tts, ia, ssw, kataAnime, planetnime, aptoide, pinteresdw} = require('./busc/buscadores.js')
   const Jimp = require('jimp') 
   const { File } = require("megajs") 
   const scp1 = require('./libs/scraper')   
   const { facebook } = require('./libs/facebook')  
   const { instagram } = require('./libs/instagram')  
   const { jadibot, listJadibot, killJadibot } = require('./serbot.js') 
-  const { youtubedl, snapsave } = require("@bochilteam/scraper") 
+ // const { youtubedl, snapsave } = require("@bochilteam/scraper") 
 const JavaScriptObfuscator = require('javascript-obfuscator')
 
 const { play } = require('./plugins/play.js') 
@@ -180,8 +179,8 @@ const { play } = require('./plugins/play.js')
   }} */  
   
   //autoread  
-  if (m.message) {  
-  conn.readMessages([m.key])}  
+/*if (m.message) {  
+  conn.readMessages([m.key])}*/
   
   if (global.db.data.chats[m.chat].antifake && !isGroupAdmins) {          
   if (m.chat && m.sender.startsWith('1')) return conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')}  
@@ -387,7 +386,7 @@ break
      if (!/image\/(jpe?g|png)/.test(mime))   
        return  reply(`*[❗] 𝙴𝙻 𝙵𝙾𝚁𝙼𝙰𝚃𝙾 𝙳𝙴𝙻 𝙰𝚁𝙲𝙷𝙸𝚅𝙾 (${mime}) 𝙽𝙾 𝙴𝚂 𝙲𝙾𝙼𝙿𝙰𝚁𝚃𝙸𝙱𝙻𝙴, 𝙴𝙽𝚅𝙸𝙰 𝙾 𝚁𝙴𝚂𝙿𝙾𝙽𝙳𝙴 𝙰 𝚄𝙽𝙰 𝙵𝙾𝚃𝙾*`);  
   m.reply(   
- "*[❗] 𝙿𝚁𝙾𝙲𝙴𝚂𝙰𝙽𝙳𝙾 𝙸𝙼𝙰𝙶𝙴𝙽, 𝙴𝚂𝚃𝙾 𝙿𝚄𝙴𝙳𝙴 𝙳𝙴𝙼𝙾𝚁𝙰𝚁 𝚄𝙽𝙾𝚂 𝙼𝙸𝙽𝚄𝚃𝙾𝚂.. 𝙿𝙾𝚁 𝙵𝙰𝚅𝙾𝚁 𝚂𝙴𝙰 𝙿𝙰𝙲𝙸𝙴𝙽𝚃𝙴*",   
+ "*⚔️ Espera mientras envio tu imagen HD*",   
  );   
      let img = await q.download?.();   
      let pr = await remini(img, "enhance");   
@@ -395,9 +394,7 @@ break
      try {   
      } catch {   
        m.reply("*[❗] 𝙴𝚁𝚁𝙾𝚁, 𝙿𝙾𝚁 𝙵𝙰𝚅𝙾𝚁 𝚅𝚄𝙴𝙻𝚅𝙴 𝙰 𝙸𝙽𝚃𝙴𝙽𝚃𝙰𝚁𝙻𝙾*");   
-     } finally {   
-       delete conn.unblur_high[m.sender];   
-   }   
+     } 
    };  
    break;  
   //info  
@@ -786,11 +783,11 @@ if (!isCreator) return reply(info.owner)
   
   case 'simi': case 'bot': {  
      if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
-  if (!text) return conn.sendMessage(from, { text: `*INGRESE UN TEXTO PARA HABLAR CONMIGO*` }, { quoted: msg })  
-  await conn.sendPresenceUpdate('composing', m.chat)  
-  let anu = await fetchJson(`https://api.lolhuman.xyz/api/simi?apikey=${lolkeysapi}&text=${text}&badword=true`)  
-  let res = anu.result;  
-  m.reply(res)}  
+  if (!text) return conn.sendMessage(from, { text: `*INGRESE UN TEXTO PARA HABLAR CONMIGO*`}, { quoted: msg })  
+await conn.sendPresenceUpdate('composing', m.chat) 
+ let anu = await fetchJson(`https://api.simsimi.net/v2/?text=${text}&lc=es&cf=false`) 
+ let res = anu.success; 
+ m.reply(res)}
 
   break   
  case 'ia': case 'chatgpt': 
@@ -823,29 +820,8 @@ if (!isCreator) return reply(info.owner)
   { quoted: m})  
   break  
   
-  case 'fake':  
-  if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
-  var gh = body.slice(11);  
-  var mentioned = m.message.extendedTextMessage && m.message.extendedTextMessage.contextInfo && m.message.extendedTextMessage.contextInfo.mentionedJid ? m.message.extendedTextMessage.contextInfo.mentionedJid[0] : null;  
-  var replace = gh.split("|")[0];  
-  var target = gh.split("|")[1];  
-  var bot = gh.split("|")[2];  
-  if (mentioned && target && bot) {  
-  var quotedMessage = {  
-  key: {  
-  fromMe: false,  
-  participant: mentioned  
-  },  
-  message: {  
-  conversation: target  
-  }};  
-  var sendMessageOptions = {  
-  text: `${bot}`,  
-  quoted: quotedMessage  
-  };  
-  conn.sendMessage(from, sendMessageOptions, { quoted: quotedMessage });  
-  } else {  
-  conn.sendMessage(from, { text: `Ejemplo: ${prefix + command} @tag|puto|😯`}, { quoted: msg })}  
+  case 'fake': {
+await fakechat(conn, text, prefix, command, body, from, m, sender, quoted)}
   break  
   
   case 'hentai':  
@@ -1011,7 +987,9 @@ const url = `https://xanax-apis.online/youtube/mp4?url=${text}&apitoken=${xanax}
 conn.sendMessage(from, { video: { url: url}, mimetype: 'video/mp4', fileName: `Shadow.mp4` }, { quoted: m })}
 break 
 
-  
+ case 'apk': case 'modapk': {
+ aptoide(conn, m, text, args, command)}
+  break
   case 'gitclone':  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   if (!args[0]) return reply(`*Ejemplo :*\n${prefix + command} ${md}`)  
@@ -1040,7 +1018,7 @@ break
   reply(info.limit)   
   break  
   
-  case 'lyrics': case 'letra': {  
+ /* case 'lyrics': case 'letra': {  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   if (!text) return reply(`*Que esta buscado? ingresa el titulo/nombre de la canción*\n*Ejemplo:* ${prefix + command} ozuna`)  
   const { lyrics, lyricsv2 } = require('@bochilteam/scraper')  
@@ -1048,7 +1026,7 @@ break
   conn.editMessage(m.chat, '*Aguarde un momento....*', `*❏ Titulo:* ${result.title}\n*❏ Autor :* ${result.author}\n*❏ Url :* ${result.link}\n\n*❏ Letra :* ${result.lyrics}`, 3, fkontak)  
   db.data.users[m.sender].limit -= 1  
   reply(info.limit)}  
-  break  
+  break */ 
   
   case 'ss': case 'ssweb': {  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
@@ -1607,28 +1585,9 @@ case 'bal': case 'balance': case 'banco': {
 case 'claim': case 'daily': case 'reclamar': 
  await claim(conn, m, sender) 
  break
- case "pinterest": 
-  { 
+ case "pinterest": { 
   if (!text) return reply(`Ejemplo : ${prefix + command}`); 
-  let { pinterest } = require("./libs/scraper2"); 
-  anu = await pinterest(text); 
-  result = anu[Math.floor(Math.random() * anu.length)]; 
-  let buttons = [ 
-  { 
-  buttonId: `pinterest ${text}`, 
-  buttonText: { displayText: "► NEXT" }, 
-  type: 1, 
-  }, 
-  ]; 
-  let buttonMessage = { 
-  image: { url: result }, 
-  caption: `*toma lo que pediste :v*`, 
-  footer: botname, 
-  buttons: null, 
-  headerType: 4, 
-  }; 
-  shadow.sendMessage(m.chat, buttonMessage, { quoted: m }); 
-  } 
+pinteresdw(conn, m, text, args, command)}
   break; 
   
  case 'play': 
@@ -1692,7 +1651,7 @@ case "hola" : {
 }
 
 break
-case 'gato': case 'cat': {
+case 'gato': {
 let res = await fetch('https://api.thecatapi.com/v1/images/search')
 let json = await res.json()
 conn.sendMessage(m.chat, {image: {url: json[0].url}, caption: 'By Diego-OFC'}, {quoted: m})}
@@ -1719,6 +1678,12 @@ break
 case 'lb': 
 lb(conn, participants, args, m)
 break
+case 'ytmp3': {
+ if (!text) return m.reply(`Ejemplo: *${prefix + command}* https://youtube.com/watch?v=xYQgNZ14G_Q`)
+const xnx = `https://xanax-apis.online/youtube/mp3?url=${text}&apitoken=xanax-apis`
+conn.sendMessage(m.chat, { audio: { url: xnx }, fileName: 'xd.mp3', mimetype: 'audio/mp4' }, { quoted: m })}
+break
+
 
 
   
