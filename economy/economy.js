@@ -12,7 +12,7 @@ require('../main.js')
  const cheerio = require('cheerio') 
  const Jimp = require('jimp') 
  const os = require('os') 
-  
+ const {createHash} = require('crypto') 
  let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])] 
  for (let jid of mentionUser) { 
  let user = global.db.data.users[jid] 
@@ -355,6 +355,8 @@ let user = global.db.data.users[m.sender]
   ❍ *Dolares:* $${global.db.data.users[who].dolares} 💸  
  ❍ *Banco:* ${global.db.data.users[who].bank}  
   ╰━━━━━━━━━━━━╾•`.trim();  
+     
+  conn.sendMessage(m.chat, { react: { text: "💳" , key: m.key }})
     conn.sendMessage(  
       m.chat,  
       {  
@@ -411,7 +413,42 @@ let user = global.db.data.users[m.sender]
  m.reply(`╔═❖ *ɴᴏᴛᴀ ᴅᴇ ᴘᴀɢᴏ*\n║‣ *ʜᴀs ᴄᴏᴍᴘʀᴀᴅᴏ :* ${count}💎\n║‣ *ʜᴀs ɢᴀsᴛᴀᴅᴏ :* ${450 * count} XP\n╚═══════════════`); 
  } else m.reply(`🔶 ɴᴏ ᴛɪᴇɴᴇ sᴜғɪᴄɪᴇɴᴛᴇ xᴘ ᴘᴀʀᴀ ᴄᴏᴍᴘʀᴀʀ *${count}* ᴅɪᴀᴍᴀɴᴛᴇ 💎 ᴘᴜᴇᴅᴇs ᴄᴏɴsᴇɢᴜɪʀ *xᴘ* ᴜsᴀɴᴅᴏ ᴇʟ ᴄᴏᴍᴀɴᴅᴏs #minar`) 
  } 
+  async function lb(conn, participants, args, m) { 
+ const participants2 = [...m.split()];
+const users = global.db.data.users;
+
+const sortedExp = users
+  .map(({ exp }) => exp)
+  .sort((a, b) => b - a);
+const sortedDolares = users
+  .map(({ dolares }) => dolares)
+  .sort((a, b) => b - a);
+const sortedLevel = users
+  .map(({ level }) => level)
+  .sort((a, b) => b - a);
+
+const usersExp = sortedExp.map((exp) => users.find((user) => user.exp === exp));
+const usersDolares = sortedDolares.map((dolares) => users.find((user) => user.dolares === dolares));
+const usersLevel = sortedLevel.map((level) => users.find((user) => user.level === level));
+
+const len = args[0];
+ const texto = `𝚃𝙰𝙱𝙻𝙰 𝙳𝙴 𝙲𝙻𝙰𝚂𝙸𝙵𝙸𝙲𝙰𝙲𝙸𝙾𝙽 
   
+ ╔═❖ *𝚃𝙾𝙿 ${len} 𝚇𝙿* 🧬  
+ ║𝚃𝚞 : ${usersExp.indexOf(m.sender) + 1} 𝚍𝚎 ${usersExp.length} 
+ ${sortedExp.slice(0, len).map(({jid, exp}, i) => `║${i + 1}. ${participants2.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *${exp} exp*`).join`\n`} 
+ ╚═══════════════   
+  
+ ╔═❖ *𝚃𝙾𝙿 ${len} DOLARES 💵* 
+ ║𝚃𝚞 : ${usersDolares.indexOf(m.sender) + 1} 𝚍𝚎 ${usersDolares.length} 
+ ${sortedDolares.slice(0, len).map(({jid, dolares}, i) => `║${i + 1}. ${participants2.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *${dolares} dolares*`).join`\n`} 
+ ╚═══════════════   
+  
+ ╔═❖ *𝚃𝙾𝙿 ${len} 𝙽𝙸𝚅𝙴𝙻* ⬆️ 
+ ║𝚃𝚞 : ${usersLevel.indexOf(m.sender) + 1} 𝚍𝚎 ${usersLevel.length} 
+ ${sortedLevel.slice(0, len).map(({jid, level}, i) => `║${i + 1}. ${participants2.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} ➭ *nivel ${level}*`).join`\n`} 
+ ╚═══════════════ `.trim(); 
+    conn.sendTextWithMentions(m.chat, texto, m)}
  async function afk(conn, m, sender, args, pushname, text) { 
  if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra) 
  let user = global.db.data.users[m.sender] 
@@ -467,6 +504,22 @@ function canLevelUp(level, xp, multiplier = global.multiplier || 1) {
    return level < findLevel(xp, multiplier); 
  }
  //función pickrandow 
+function sort(property, ascending = true) { 
+   if (property) return (...args) => args[ascending & 1][property] - args[!ascending & 1][property]; 
+   else return (...args) => args[ascending & 1] - args[!ascending & 1]; 
+ } 
+  
+ function toNumber(property, _default = 0) { 
+   if (property) { 
+     return (a, i, b) => { 
+       return {...b[i], [property]: a[property] === undefined ? _default : a[property]}; 
+     }; 
+   } else return (a) => a === undefined ? _default : a; 
+ } 
+  
+ function enumGetKey(a) { 
+   return a.jid; 
+ }
  function pickRandom(list) { 
  return list[Math.floor(list.length * Math.random())] 
  } 
@@ -493,11 +546,22 @@ function special(type) {
    let special = ["common", "uncommon", "mythic", "legendary", "pet"].includes(b) ? " Crate" : ""; 
    return special; 
  } 
+ /*function before(m, conn, participants ) { 
+   if (!m.messageStubType || !m.isGroup) return true 
+   const groupName = (await conn.groupMetadata(m.chat)).subject 
+   const groupAdmins = participants.filter((p) => p.admin) 
+   const pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => null) || './media/sinfoto.jpg' 
+   const img = await (await fetch(pp)).buffer() 
+   const chat = global.db.data.chats[m.chat] 
+   const mentionsString = [m.sender, m.messageStubParameters[0], ...groupAdmins.map((v) => v.id)] 
+   const mentionsContentM = [m.sender, m.messageStubParameters[0]] 
+  }*/
   
+   
  function isNumber(x) { 
    return !isNaN(x); 
  }
- module.exports = { rob, reg, bal, work, mine, afk, buy, claim, levelxd, tranferSdw, quitardolares, addDolares, cazar}
+ module.exports = { rob, reg, bal, work, mine, afk, buy, claim, levelxd, tranferSdw, quitardolares, addDolares, cazar, lb}
   
  let file = require.resolve(__filename) 
  fs.watchFile(file, () => { 
