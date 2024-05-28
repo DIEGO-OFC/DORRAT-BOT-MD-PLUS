@@ -38,6 +38,7 @@ const { play } = require('./plugins/play.js')
  const { WaMessageStubType, areJidsSameUser, downloadContentFromMessage, generateWAMessageContent, generateWAMessageFromContent, generateWAMessage, prepareWAMessageMedia, relayMessage} = require('@whiskeysockets/baileys'); // Importa los objetos 'makeWASocket' y 'proto' desde el módulo '@whiskeysockets/baileys'
   const { ytmp4, ytmp3, ytplay, ytplayvid } = require('./libs/youtube')  
   const { menu } = require('./plugins/menu.js')  
+  const { menu2 } = require('./plugins/menu2.js')  
   const { mediafireDl } = require('./libs/mediafire.js')  
   const { state } = require('./plugins/info.js')  
   const msgs = (message) => {   
@@ -336,29 +337,6 @@ conn.relayMessage(test.key.remoteJid, test.message, { messageId: test.key.id }, 
 }
 break
 
-case 'test2': {
-const testI = generateWAMessageFromContent(m.key.remoteJid, { 
-viewOnceMessage: { 
-message: { 
-"messageContextInfo": { 
-"deviceListMetadata": {}, 
-"deviceListMetadataVersion": 2 }, 
-interactiveMessage: proto.Message.InteractiveMessage.create({ 
-body: proto.Message.InteractiveMessage.Body.create({ text: '' }), 
-footer: proto.Message.InteractiveMessage.Footer.create({ text: 'test' }), 
-header: proto.Message.InteractiveMessage.Header.create({ 
-title: 'test', 
-subtitle: 'xdd', 
-hasMediaAttachment: false }), 
-nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({ 
-buttons: [ { "name": "quick_reply", 
-"buttonParamsJson": `{"display_text":"Menu","id":".menu"}` }, { 
-"name": "quick_reply", 
-"buttonParamsJson": `{"display_text":"Ping","id":".ping"}` }
-], })})}}}, {})
-conn.relayMessage(testI.key.remoteJid, testI.message, { messageId: testI.key.id }, {quoted: m})}
-break
-
   case 'yts': 
  await yt(conn, m, text, from, command, fkontak, prefix) 
  break
@@ -476,25 +454,65 @@ break
 if (!isCreator) return conn.sendMessage(from, { text: info.owner }, { quoted: msg });   
 quitardolares(conn, m, sender, text, args, command)}
 break
-  case 'menu': case 'help':  
+
+case 'menu': case 'help': {
+const testI = generateWAMessageFromContent(m.key.remoteJid, { 
+viewOnceMessage: { 
+message: { 
+"messageContextInfo": { 
+"deviceListMetadata": {}, 
+"deviceListMetadataVersion": 2 }, 
+interactiveMessage: proto.Message.InteractiveMessage.create({ 
+body: proto.Message.InteractiveMessage.Body.create({ text: '' }), 
+footer: proto.Message.InteractiveMessage.Footer.create({ text: '' }), 
+header: proto.Message.InteractiveMessage.Header.create({ 
+title: `╦══════════════════ ⪨
+┃│✾ ⋟ *${ucapan()}*
+┃│✾ ⋟ *tenemos varios tipos de menus*
+┃│✾ ⋟ 1
+┃│✾ ⋟ *#menucompleto*
+┃│✾ ⋟ 2
+┃│✾ ⋟ *#descargasmenu*
+┃│✾ ⋟ *ejemplo:*
+┃│✾ ⋟ *#menucompleto*
+┃╰══ ⪨`, 
+subtitle: 'xdd', 
+hasMediaAttachment: false }), 
+nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({ 
+buttons: [ { "name": "quick_reply", 
+"buttonParamsJson": `{"display_text":"🌐 menucompleto","id":".allmenu"}` }, { 
+"name": "quick_reply", 
+"buttonParamsJson": `{"display_text":"🧳 descargasmenu","id":".descargasmenu"}` }, {
+"name": "quick_reply", 
+"buttonParamsJson": `{"display_text":"👾 estado","id":".estado"}` }, { 
+"name": "quick_reply", 
+"buttonParamsJson": `{"display_text":"🎭 Grupo de WhatsApp","id":".grupos"}` }
+], })})}}}, {})
+conn.relayMessage(testI.key.remoteJid, testI.message, { messageId: testI.key.id }, {quoted: m})}
+break
+
+case 'menucompleto': case 'allmenu':  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
-  conn.sendMessage(from, { text: menu(conn, prefix, pushname, sender, m),    
-  contextInfo:{    
-  forwardingScore: 9999999,    
-  isForwarded: true,     
-  mentionedJid:[sender],    
-  "externalAdReply": {    
-  "showAdAttribution": true,    
-  "renderLargerThumbnail": true,    
-  "title": wm,     
-  "containsAutoReply": true,    
-  "mediaType": 1,     
-  "thumbnail": imagen3,    
-  "mediaUrl": md,   
-  "sourceUrl": md,   
-  }}}, { quoted: fkontak })   
+m.reply(`[ 𝐂𝐀𝐑𝐆𝐀𝐍𝐃𝐎 𝐌𝐄𝐍𝐔... ]`);       
+conn.sendMessage(m.chat, {image: imagen3, caption: menu(conn, prefix, pushname, sender, m), mentions:[sender]}, { quoted: fkontak })  
   break   
-  
+
+case 'descargasmenu': {  
+await conn.sendMessage(m.chat, { image: { url: "https://telegra.ph/file/dde9bd1f999297449d139.jpg", },  caption: menu2(conn, prefix, pushname, sender, m),  
+        contextInfo: {  
+          mentionedJid: [m.sender],  
+          externalAdReply: {  
+            title: `MENU - DESCARGAS`,  
+            sourceUrl: "http://paypal.me/DorratBotOficial",  
+            mediaType: 1,  
+            showAdAttribution: true,  
+            thumbnailUrl: "https://telegra.ph/file/dde9bd1f999297449d139.jpg",  
+          },  
+        },   
+      },  
+      { quoted: m, })}
+break               
+                 
   case 'owner': case 'creador':  
   if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;OWNER 👑;;;\nFN:OWNER\nORG:OWNER 👑\nTITLE:\nitem1.TEL;waid=584125778026:+58 412 5778026\nitem1.X-ABLabel:OWNER 👑\nX-WA-BIZ-DESCRIPTION:ᴇsᴄʀɪʙɪ sᴏʟᴏ ᴘᴏʀ ᴄᴏsᴀs ᴅᴇʟ ʙᴏᴛ.\nX-WA-BIZ-NAME:Owner 👑\nEND:VCARD`  
@@ -1792,7 +1810,29 @@ conn.sendMessage(m.chat, { audio: { url: xnx }, fileName: 'xd.mp3', mimetype: 'a
 break
 
 
+function ucapan() {
+  const time = moment.tz("America/Los_Angeles").format("HH"); //America/Los_Angeles  Asia/Jakarta   America/Toronto
 
+  let res = "🌉Buenas madrugadas";
+
+  if (time >= 4) {
+    res = "🌇Buenos Días";
+  }
+
+  if (time >= 11) {
+    res = "🏙️Buenas Tardes";
+  }
+
+  if (time >= 15) {
+    res = "🌆Buenas tardes";
+  }
+
+  if (time >= 17) {
+    res = "🌃Buenas noches";
+  }
+
+  return res;
+}
   
  function msToTime(duration) {   
      var milliseconds = parseInt((duration % 1000) / 100),   
