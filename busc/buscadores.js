@@ -170,30 +170,10 @@ const texttospeechurl = SpeakEngine.getAudioUrl(texttosay, {lang: "es", slow: fa
 conn.sendMessage(m.chat, { audio: { url: texttospeechurl }, contextInfo: { "externalAdReply": { "title": botname, "body": ``, "previewType": "PHOTO", "thumbnailUrl": null,"thumbnail": imagen1, "sourceUrl": md, "showAdAttribution": true}}, seconds: '4556', ptt: true, mimetype: 'audio/mpeg', fileName: `error.mp3` }, { quoted: m })}
 
 async function ia(conn, m, text, quoted) {
-           if (!text) return m.reply(`*ingresa un texto para hablar con chatgpt*`) 
-           try {      
-          let tioress = await fetch(`https://api.lolhuman.xyz/api/openai-turbo?apikey=${lolkeysapi}&text=${text}`)  
-          let hasill = await tioress.json()  
-          m.reply(`${hasill.result}`.trim())     
-          } catch {
-          try {
-          let mygpt = await fetch(`https://vihangayt.me/tools/chatgpt4?q=${text}`) 
-          let _result = await mygpt.json() 
-          m.reply(`${_result.data}`)
-          } catch {
-          try {
- let mygpt2 = await fetch(`https://vihangayt.me/tools/chatgpt?q=${text}`) 
-
-let _result2 = await mygpt2.json()
-m.reply(`${_result2.data}`)  
- } catch {
-let mygpt8 = await fetch(`https://xanax-apis.online/ias/bard?q=${text}&apitoken=${xanax}`) 
-
-let _result5 = await mygpt8.json()
-
-m.reply(`${_result5.resultado}`)       
-         } }}
-
+if (!text) return m.reply(`*ingresa un texto para hablar con chatgpt*`) 
+          let gpt = await fetch(`https://delirius-api-oficial.vercel.app/api/chatgpt?q=${text}`);
+let res = await gpt.json()
+await m.reply(res.data)
 db.data.users[m.sender].limit -= 1
 }
 
