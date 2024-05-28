@@ -95,7 +95,7 @@ if (opts['autocleartmp'] && (global.support || {}).find) (tmp = [os.tmpdir(), 't
 }}
 setInterval(async () => {
 await clearTmp()
-console.log(chalk.cyanBright(`🟢 Archivo tmp basura eliminado`))}, 180000)
+console.log(chalk.cyanBright(`▣════════[ 𝐀𝐔𝐓𝐎𝐂𝐋𝐄𝐀𝐑-𝐓𝐌𝐏 ]════════════...\n│\n▣─➢ 𝐁𝐚𝐬𝐮𝐫𝐚 𝐞𝐥𝐢𝐦𝐢𝐧𝐚𝐝𝐚 ✅\n│\n▣═════════════════════════════════════...`))}, 180000)
 //_________________
 
 //sessions/jadibts
@@ -148,15 +148,15 @@ console.log(chalk.bold.red(`🟢 Archivos ${file} borrado ` + err))
 } }) }) }) })}
 setInterval(async () => {
   await purgeSession();
-  console.log(chalk.cyanBright(`━─━─━─≪🔆≫─━─━─━╮\n│AUTOPURGESESSIONS\n│ARCHIVOS ELIMINADOS ✅\n╰━─━─━─≪🔆≫─━─━─━╯`));
+  console.log(chalk.cyanBright(`▣════════[ AUTOPURGESESSIONS ]════════════...\n│\n▣─➢ ARCHIVOS ELIMINADOS ✅\n│\n▣═════════════════════════════════════...`));
 }, 1000 * 60 * 60);
 setInterval(async () => {
   await purgeSessionSB();
-  console.log(chalk.cyanBright(`╭━─━─━─≪🔆≫─━─━─━╮\n│AUTO_PURGE_SESSIONS_SUB-BOTS\n│ ARCHIVOS ELIMINADOS ✅\n╰━─━─━─≪🔆≫─━─━─━╯`));
+  console.log(chalk.cyanBright(`▣════════[ AUTO_PURGE_SESSIONS_SUB-BOTS ]════════════...\n│\n▣─➢ ARCHIVOS ELIMINADOS ✅\n│\n▣═════════════════════════════════════...`));
 }, 1000 * 60 * 60);
 setInterval(async () => {
   await purgeOldFiles();
-  console.log(chalk.cyanBright(`╭━─━─━─≪🔆≫─━─━─━╮\n│AUTO_PURGE_OLDFILES\n│ARCHIVOS ELIMINADOS ✅\n╰━─━─━─≪🔆≫─━─━─━╯`));
+  console.log(chalk.cyanBright(`▣════════[ AUTO_PURGE_OLDFILES ]════════════...\n│\n▣─➢ ARCHIVOS ELIMINADOS ✅\n│\n▣═════════════════════════════════════...`));
 }, 1000 * 60 * 60);
 //___________
     
@@ -456,24 +456,37 @@ const { connection, lastDisconnect, qr, receivedPendingNotifications, isNewLogin
 console.log(receivedPendingNotifications)
 if (isNewLogin) sock.isInit = true
 if (connection == 'connecting') {
-console.log(chalk.gray('iniciando...'));
+console.log("📑  Cargando comandos");
+console.log("📦  Comandos Cargados correctamente");
+console.log("☑️ㅤIniciando bot...");
+
+say("THE DORRAT-BOT-MD", {
+  font: "tiny",
+  align: "center",
+  colors: ["#ff8000"],
+});
+say(`CREADO POR DIEGO-OFC`, {
+  font: "console",
+  align: "center",
+  colors: ["red"],
+});
 
 } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
 console.log(color('[SYS]', '#009FFF'),
 color(moment().format('DD/MM/YY HH:mm:ss'), '#A1FFCE'),
-color(`⚠️ CONEXION CERRADA, SE INTENTARA RECONECTAR`, '#f64f59'));
+color(`[❌] Conexion cerrada, por favor borre la carpeta sessions y reescanee el codigo QR`, '#f64f59'));
 startBot()
 } else if (opcion == '1' || methodCodeQR && qr !== undefined) {
 if (opcion == '1' || methodCodeQR) {
 console.log(color('[SYS]', '#009FFF'),
-color(moment().format('DD/MM/YY HH:mm:ss'), '#A1FFCE'),color(`\n╭━─━─━─≪ ${vs} ≫─━─━─━╮\n│ESCANEA EL QR, EXPIRA 45 SEG...\n╰━─━━─━─≪ 🟢 ≫─━─━━─━╯`, '#f12711')) 
+color(moment().format('DD/MM/YY HH:mm:ss'), '#A1FFCE'),color(`\n[🔄] Escanea este codigo QR, el codigo QR expira en 60 segundos.`, '#f12711')) 
 }
 } else if (connection == 'open') {
 console.log(color(` `,'magenta'))
 console.log(color(JSON.stringify(sock.user, null, 2), 'yellow'))
 console.log(color('[SYS]', '#009FFF'),
 color(moment().format('DD/MM/YY HH:mm:ss'), '#A1FFCE'),
-color(`\n╭━─━─━─≪ ${vs} ≫─━─━─━╮\n│YA ESTA CONECTADO CORRECTAMENTE\n╰━─━━─━─≪ 🟢 ≫─━─━━─━╯` + receivedPendingNotifications, '#38ef7d')
+color(`\n╭──────────────────────────────✧•°•°···\n│➢ 𝐁𝐎𝐓 𝐂𝐎𝐍𝐄𝐂𝐓𝐀𝐃𝐎 𝐂𝐎𝐑𝐑𝐄𝐂𝐓𝐀𝐌𝐄𝐍𝐓𝐄 ☑️\n│❏ 𝐁𝐎𝐓 𝐈𝐍𝐒𝐓𝐀𝐋𝐀𝐃𝐎:𝐃𝐎𝐑𝐑𝐀𝐓-𝐁𝐎𝐓-𝐌𝐃 ☑️\n╰──────────────────────────────✧•°•°···` + receivedPendingNotifications, '#38ef7d')
 );
 
 /*if (!sock.user.connect) {
