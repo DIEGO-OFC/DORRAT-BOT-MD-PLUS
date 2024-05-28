@@ -143,18 +143,28 @@ conn.sendMessage(m.chat, { image: { url: images}, caption: `*💫 𝘙𝘌𝘚�
 
 async function tran(conn, m, args, quoted, prefix, command) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
+const translate = require('@vitalets/google-translate-api') 
 if (!args || !args[0]) return m.reply(`*Ejemplo:*\n${prefix + command} es hello`)
 let lang = args[0];
 let text = args.slice(1).join(' ');
 const defaultLang = 'es';
 if ((args[0] || '').length !== 2) {
 lang = defaultLang;
-text = args.join(' ')}
+text = args.join(' ');
+}
 if (!text && m.quoted && m.quoted.text) text = m.quoted.text;
+try {
+const result = await translate(`${text}`, {to: lang, autoCorrect: true});
+await m.reply(`> *Traducción:* ${result.text}`);
+} catch {
+try {
 const lol = await fetch(`https://api.lolhuman.xyz/api/translate/auto/${lang}?apikey=${lolkeysapi}&text=${text}`);
 const loll = await lol.json();
 const result2 = loll.result.translated;
-await m.reply('*> Traducción:* ' + result2)}
+await m.reply(`> *Traducción:* ${result2}`);
+} catch {
+await m.reply(info.error)
+}}}
 
 async function tts(conn, m, q, text, quoted) {
 if (global.db.data.users[m.sender].registered < true) return m.reply(info.registra)
