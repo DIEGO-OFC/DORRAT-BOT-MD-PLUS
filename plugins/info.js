@@ -20,22 +20,15 @@ const cpuUsage = os.loadavg()[0]
 let me = m.sender
 var timestamp = speed();  
 var latensi = speed() - timestamp  
-let stateRun = `┏━━━━❰･𝐄𝐒𝐓𝐀𝐃𝐎 𝐃𝐄𝐋 𝐁𝐎𝐓･❱━━━━
-┃
-┃웃 Hola @${me.split('@')[0]}
-┃
-┃╍╍╍╍╍╍╍╍╍╍╍╍╍
-┃
-┃➢ 𝚁𝙰𝙼 𝙳𝙴𝙻 𝚂𝙴𝚁𝚅𝙸𝙳𝙾𝚁 : ${usedMemory} GB / ${totalMemory} GB
-┃➢ 𝙿𝙻𝙰𝚃𝙰𝙵𝙾𝚁𝙼𝙰 : ${os.platform()}
-┃➢ 𝙷𝙾𝚃𝚂 : ${os.hostname()}
-┃➢ 𝙲𝙿𝚄 𝚄𝚂𝙰𝙽𝙳𝙾 : ${cpuUsage.toFixed(2)}%
-┃➢ 𝙼𝙴𝙼𝙾𝚁𝙸𝙰 𝚃𝙾𝚃𝙰𝙻 : ${totalMemory} GB
-┃➢ 𝙰𝙲𝚃𝙸𝚅𝙾 : ${runtime(process.uptime())}
-┃➢ 𝙼𝙾𝙳𝙾 : ${conn.public ? 'Público' : `Privado`}
-┃╍╍╍╍╍╍╍╍╍╍╍╍╍
-┃➢ 𝚄𝚂𝚄𝙰𝚁𝙸𝙾𝚂 : ${Object.keys(global.db.data.users).length}
-┗━━━━━━━━━━━━━`.trim()
+let stateRun = `╔═[ *∆.𝑫𝑶𝑹𝑹𝑯∆𝑻-𝑩𝑶𝑻.∆* ]
+║ *➤ 𝙷𝙾𝙻𝙰 @${me.split('@')[0]}*
+║
+║ *=➢ 🤖 TIEMPO ACTIVO:* ${runtime(process.uptime())}
+║ *=➢ 👑 CREADOR: DIEGO-OFC*
+║ *=➢ 🔗 PAGINA OFICIAL:* dorrat-bot-oficial.ml
+╚════════════════
+[número del creador]:
+wa.me/528442286089`.trim()
 let ments = [me]        
 await conn.sendMessage(m.chat, {image: imagen1, caption: stateRun, mentionedJid:[sender]}, { quoted: fkontak })
 }

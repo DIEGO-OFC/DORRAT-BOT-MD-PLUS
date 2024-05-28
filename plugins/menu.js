@@ -23,84 +23,73 @@ const week = d.toLocaleDateString(locale, {weekday: 'long'});
 const date = d.toLocaleDateString(locale, {day: 'numeric', month: 'long', year: 'numeric'});*/
 let wa = m.key.id.length > 21 ? 'Android' : m.key.id.substring(0, 2) == '3A' ? 'IOS' : 'whatsapp web'
 
-return `╔══════ ≪ •❈• ≫ ══════╗
-║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
-║✾ Hola @${sender.split("@")[0]} 👋🏻 
-║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
-║✾ ᴘʀᴇғɪᴊᴏ: [ ${prefix} ]
-║✾ ғᴇᴄʜᴀ: ${date}
-║✾ ʜᴏʀᴀ: ${time}
-║✾ ᴜsᴜᴀʀɪᴏ : ${Object.keys(global.db.data.users).length}
-║✾ ᴀᴄᴛɪᴠɪᴅᴀᴅ : ${runtime(process.uptime())}
-║✾ ᴍᴏᴅᴏ : ${conn.public ? 'publico' : 'privado'}
-║
-║✾ ʟɪᴍɪᴛᴇ : ${user.limit}
-║✾ ɴɪᴠᴇʟ : ${user.level}
-║✾ ʀᴀɴɢᴏ : ${user.role}
-║✾ ᴇxᴘ : ${user.exp}
-║ 
-║✾ ʀᴇɢɪsᴛʀᴀᴅᴏ : ${rtotalreg} 
-║◤━━━━━ ☆. ∆ .☆ ━━━━━◥
-╚══════ ≪ •❈• ≫ ══════╝
+return `*╭━━❍𝐃𝐎𝐑𝐑𝐀𝐓-𝐁𝐎𝐓-𝐌𝐃❍━━╮* 
+ *┣━━━▢ ❤𝐇𝐎𝐋𝐀, @${sender.split("@")[0]} ❤*• 
+ *┃╭━━━━━━━━━━━━━━━━╾•* 
+ *┃┃  ❍ ${time} ❍* 
+ *┃┣━━━━━━━━━━━━━━━━╾•* 
+ *┃┃ ⋄ NUMERO DEL CREADOR: wa.me/528442286089 (𝐍𝐎 𝐁𝐎𝐓)* 
+ *┃┃ ⋄ VERSION » ${vs}* 
+ *┃┃ ⋄ FECHA » ${date}* 
+ *┃┃ ⋄ TIEMPO ACTIVO » ${runtime(process.uptime())}
+ *┃┃ ⋄ LIBRERIA » Bailleys*
+ *┃┃ ⋄ USUARIOS » ${Object.keys(global.db.data.users).length}*
+ *┃┃ ⋄ MODO » ${conn.public ? 'publico' : 'privado'}*
+ *┃╰━━━━━━━━━━━━━━━━╾•* 
+ *╰━━━╼𝐃𝐎𝐑𝐑𝐀𝐓-𝐁𝐎𝐓-𝐌𝐃╾━━━╯* 
 
-\`\`\`🟢 ＩＮＦＯＲＭＡＣＩＯＮ 🟢\`\`\`
-\`\`\`♨️ ᴇʟ ʙᴏᴛ ᴇs ɴᴜᴇᴠᴏ ᴛᴏᴅᴀᴠɪᴀ ᴇsᴛᴀ en ᴅᴇsᴀʀʀᴏʟʟᴀᴅᴏ,  sɪ ᴘʀᴇsᴇɴᴛᴀ ᴀʟɢᴜɴ ᴘʀᴏʙʟᴇᴍᴀ, ᴄᴏᴍᴜɴɪᴄᴀʀsᴇ ᴄᴏɴ ᴍɪ ᴄʀᴇᴀᴅᴏʀ ᴇsᴄʀɪʙɪʀ #creador\`\`\`
+ ▧ 「 *I N F O R M A C I O N* 」  
+ │ ‣ ︎ _${usedPrefix}grupos_ 
+ │ ‣  _${usedPrefix}estado_ 
+ │ ‣ ︎ _${usedPrefix}terminos_ 
+ │ ‣  _${usedPrefix}instalarbot_ 
+ │ ‣  _${usedPrefix}infobot_ 
+ │ ‣  _${usedPrefix}grouplist_ 
+ │ ‣  _${usedPrefix}owner_ 
+ │ ‣  _${usedPrefix}script_ 
+ │ ‣  _Bot_ (𝑢𝑠𝑜 𝑠𝑖𝑛 𝑝𝑟𝑒𝑓𝑖𝑗𝑜) 
+ └──···
 
-===============================
-\`\`\`♨️ ＬＩＳＴＡ ＤＥ ＣＯＭＡＮＤＯ ♨️\`\`\`
-\`\`\`ʙᴏᴛ sɪᴍᴘʟᴇ ᴄᴏɴ ᴘᴏᴄᴏs ᴄᴏᴍᴀɴᴅᴏs\`\`\`
-===============================
-
-*╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*⃐ℹ️ ＩＮＦＯ ＢＯＴ*️⃟ᬽ፝֟━*
-├❥ᰰຼ ❏ ${prefix}reg 
-├❥ᰰຼ _(registrarte para poder usar el bot)_
-├❥ᰰຼ ❏ ${prefix}estado 
-├❥ᰰຼ _(comprueba el estado del bot)_
-├❥ᰰຼ ❏ ${prefix}ping 
-├❥ _(Velocidad del bot)_
-├❥ᰰຼ ❏ ${prefix}grupos 
-├❥ _(unirte al los grupos oficiales y divirte con el bot 😸)_
-├❥ᰰຼ ❏ ${prefix}owner
-├❥ᰰຼ ❏ ${prefix}creador
-├❥ᰰຼ _(te envia los contactos del mi creador)_
-├❥ᰰຼ ❏ ${prefix}instalarbot (pronto) 
-├❥ᰰຼ ❏ ${prefix}report 
-├❥ᰰຼ _(reporta comando con falla/errores/ortografía, etc)_
-*╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
-
-*╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*⃐🤖ＪＡＤＩＢＯＴ*️⃟ᬽ፝֟━*
-├❥ᰰຼ  *(Este serbot esta modo beta)*
-├ *✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:
-├❥ᰰຼ ❏ ${prefix}serbot
-├❥ᰰຼ ❏ ${prefix}jadibot
-├❥ _(General un qr para convertirte el un sub bot)_
-├❥ᰰຼ ❏ ${prefix}sercode (conéctate sin escanear qr, te conectas mediante un código)
-├❥ᰰຼ ❏ ${prefix}bots
-├❥ _(comprueba si hay sub bot conectado)_
-*╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
-
-*╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*⃐🔄ＤＥＳＣＡＲＧＡ*️⃟ᬽ፝֟━*
-├❥ᰰຼ ❏ ${prefix}play 
-├❥ᰰຼ _(Titulo/nombre de la canción para descargar el audio)_
-├❥ᰰຼ ❏ ${prefix}play2
-├❥ᰰຼ ❏ ${prefix}spotify
-├❥ᰰຼ  _(Titulo/nonbre de la canción para descarga el video)_
-├❥ᰰຼ ❏ ${prefix}yts 
-├❥ᰰຼ  _(buscar los links para descarga el video)_
-├❥ᰰຼ ❏ ${prefix}ytmp3
-├❥ᰰຼ _(ingresa el link para descargar el audio)_
-├❥ᰰຼ ❏ ${prefix}ytmp4
-├❥ᰰຼ _(ingresa el link para descargar el video)_
-├❥ᰰຼ ❏ ${prefix}gitclone
-├❥ᰰຼ _(ingresa el link del GitHub para descargar el repositorio)
-├❥ᰰຼ ❏ ${prefix}gitclone
-├❥ᰰຼ ❏ ${prefix}mega
-├❥ᰰຼ ❏ ${prefix}mediafire 
-├❥ᰰຼ ❏ ${prefix}tiktok
-├❥ᰰຼ (Ingresa el link del tiktok para descargar el video)
-├❥ᰰຼ ❏ ${prefix}Facebook
-├❥ᰰຼ (ingresa un link de Facebook para descargar el video)
-*╰┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭࣭࣭۫┄̸࣭۫┄̸࣭࣭࣭࣭࣭ٜ۫┄̸࣭࣭࣭࣭࣭ٜ۫┄࣭۫*
+ ╔═════════════╗  
+ ║ *<UNE UN BOT A TU GRUPO/>* 
+ ║══════════════════ 
+ ║ ➱_${usedPrefix}join *link del grupo*_  
+ ║ ➱_*minimo 30 miembros*_ 
+ ╚════ ≪ •❈• ≫ ════╝ 
+  
+ ╔═════ JADIBOT 🤖 ═════╗  
+ ║ ❒ ︎_${usedPrefix}serbot_ 
+ ║ ❒ ︎_${usedPrefix}jadibot_
+ ║ ❒ ︎_${usedPrefix}stop_ 
+ ║ ❒ ︎_${usedPrefix}bots_ 
+ ╚════ ≪ •❈• ≫ ════╝ 
+ 
+  ┌─「💻𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑」 
+ ├➢${usedPrefix}videodocumento <enlace / link / url 
+ ├➢${usedPrefix}fb <enlace / link / url 
+ ├➢${usedPrefix}twitter *<enlace / link / url>*_
+ ├➢${usedPrefix}xnxxdl *<enlace / link / url>*
+ ├➢${usedPrefix}xvideosdl *<enlace / link / url>*
+ ├➢${usedPrefix}instagram <enlace / link / url 
+ ├➢${usedPrefix}mediafire <enlace / link / url 
+ ├➢${usedPrefix}gdrive *<enlace / link / url>*
+ ├➢${usedPrefix}gitclone <enlace / link / url 
+ ├➢${usedPrefix}tiktok <enlace / link / url 
+ ├➢${usedPrefix}ytmp3 <enlace / link / url 
+ ├➢${usedPrefix}video <enlace / link / url 
+ ├➢${usedPrefix}play.1 <texto / enlace / link / url 
+ ├➢${usedPrefix}play.2 <texto / enlace / link / url 
+ ├➢${usedPrefix}play <texto 
+ ├➢${usedPrefix}spotify <texto 
+ ├➢${usedPrefix}imagen <texto 
+ ├➢${usedPrefix}pinteret <texto 
+ ├➢${usedPrefix}wallpaper <texto 
+ ├➢${usedPrefix}wallpaper2 <texto 
+ ├➢${usedPrefix}pptiktok <nombre de usuario 
+ ├➢${usedPrefix}igstalk <nombre de usuario 
+ ├➢${usedPrefix}igstory *<nombre de usuario>*_
+ ├➢${usedPrefix}tiktokstalk <nombre de usuario 
+ └────ׂ─ׂ─ׂ─ׂ── 
 
 *╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*🔰⃐ＧＲＵＰＯＳ*️⃟ᬽ፝֟━*
 ├❥ᰰຼ ❏ ${prefix}antilink _(Elimina a los que manda link de otro grupo)_
