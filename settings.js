@@ -11,8 +11,8 @@ const baileys = require('@whiskeysockets/baileys');
  ["584125778026", "Owner", true] 
    ] 
   
- global.botname = "𝐒𝐡𝐚𝐝𝐨𝐰𝐁𝐨𝐭-𝐕𝟓-𝐌𝐃" 
- global.wm = 'SħȺđøwɃøŧ-V5-MĐ 💫' 
+ global.botname = "ᗪㄖ尺尺卂ㄒ-乃ㄖㄒ-爪ᗪ+" 
+ global.wm = '🅓︎🅞︎🅡︎🅡︎🅐︎🅣︎-🅑︎🅞︎🅣︎+' 
  global.vs = '1.0.0' 
  global.place = 'America/Bogota' // Aquí puede encontrar su ubicación https://momentjs.com/timezone/ 
 global.baileys = baileys
@@ -271,7 +271,7 @@ global.query = imagen1
        "VN", 
        "VG", "VI", "WF", "EH",  "YE", "ZM", "ZW"]; 
 global.ctpro = ctxd;
- global.packname = "𝐒𝐡𝐚𝐝𝐨𝐰𝐁𝐨𝐭-𝐕𝟓-𝐌𝐃" 
+ global.packname = "ᗪㄖ尺尺卂ㄒ 乃ㄖㄒ 爪ᗪ+" 
  global.author = "By Diego-OFC" 
   
  global.info = { 
@@ -286,14 +286,14 @@ global.ctpro = ctxd;
  owner: '*[ ⚠️ ] ESTE COMANDO ES PARA MI JEFE*', 
  group: '[ ⚠️ ] *ESTE COMANDO SOLO SE PUEDE USAR EL GRUPO*', 
  private: '*[ ⚠️ ] ESTE COMANDO SOLO SE PUEDE USAR AL CHAT PRIVADO*', 
- bot: '*[ ⚠️ ] ESTE COMANDO SOLO YO LOS PUEDE USAR*', 
+ bot: '*[ ⚠️ ] ESTE COMANDO SOLO YO LOS PUEDO USAR*', 
  error: '*[ ⚠️ ] ERROR*',  
  advertencia: `[ ⚠️ ＡＤＶＥＲＴＥＮＣＩＡ ]`,  
  registra: `🟢Hey alto no esta registrado\nregistrate con #reg`,  
  limit: '*1 ᴅɪᴀᴍᴀɴᴛᴇ 💎 ᴜsᴀᴅᴏ*',  
  dolares5: '*5 Dolares usados*',
- AntiNsfw: `*Los comando +18 esta desactivado*\nSi eres admin y quiere activarlos usar:\nantiNsfs on`,  
- endLimit: 'Uff esta pobres no tener mas 💎', 
+ AntiNsfw: `*Los comandos +18 estan desactivados*\nSi eres admin y quieres activarlos usa:\nantiNsfs on`,  
+ endLimit: 'Uff estas pobres no tienes mas 💎', 
 sindolares: 'Estas pobre, no tienes dolares XD',
  } 
   global.rpg = {   
@@ -663,7 +663,7 @@ sindolares: 'Estas pobre, no tienes dolares XD',
  global.work = [  
     "Trabajas como cortador de galletas y ganas",  
     "Trabaja para una empresa militar privada, ganando",  
-    "Organiza un evento de cata de vinos y obtiene",  
+    "Trabajas con dorrat bot y obtienes",  
     "Te secuestran y te llevan a un coliseo subterráneo donde luchaste contra monstruos con personas que nunca antes habías conocido. Ganas",  
     "Limpias la chimenea y encuentras",  
     "Desarrollas juegos para ganarte la vida y ganas",  
@@ -689,7 +689,7 @@ sindolares: 'Estas pobre, no tienes dolares XD',
     "Trabajas como actor de voz para Bob Esponja y te las arreglaste para ganar",  
     "Estabas cultivando y Ganaste",  
     "Trabajas como constructor de castillos de arena y ganas",  
-    "Trabajaste y Ganaste",  
+    "Se la chupaste a viruzz, y ganaste",  
     "Trabajas como artista callejera y ganas",  
     "¡Hiciste trabajo social por una buena causa! por tu buena causa Recibiste",  
     "Llevas mujeres a la tienda por",  
