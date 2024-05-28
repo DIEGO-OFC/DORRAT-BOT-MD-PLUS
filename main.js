@@ -1589,6 +1589,15 @@ case 'bal': case 'balance': case 'banco': {
   let updatee = execSync('git remote set-url origin https://github.com/DIEGO-OFC/ShadowBotv5-MD.git && git pull')  
   await conn.sendMessage(from, { text: updatee.toString() }, { quoted: msg })}    
   break 
+  
+case 'reiniciar': case 'restart':
+if (!isCreator) return conn.sendMessage(from, { text: info.owner }, { quoted: msg });      
+if (!process.send) throw 'Dont: node main.js\nDo: node index.js'
+m.reply('🔄 Reiniciando Bot...\n Espere un momento')
+sleep(5000)
+process.send('reset')
+break
+  
   case 'setppbot': case 'setppbp':  
  if (!isCreator) return reply(info.owner) 
  if (!quoted) return reply(`Kirim/Reply Image Dengan Caption ${prefix + command}`) 
