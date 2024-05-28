@@ -11,7 +11,8 @@ global.botNumberCode = "" //Ejemplo: +59309090909
 global.phoneNumber = ""
 
  global.owner = [ 
- ["584125778026", "Owner", true]
+ ["584125778026", "Owner", true], 
+ ["5492266613038"]
  ] 
   
  global.botname = "ᗪㄖ尺尺卂ㄒ-乃ㄖㄒ-爪ᗪ+" 
