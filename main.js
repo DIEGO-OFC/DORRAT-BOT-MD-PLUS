@@ -540,8 +540,7 @@ break
 ╰━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━━━━━━━━━━━━━━━━━╾•
-┃1: ${md} ⇚
-┃2: https://chat.whatsapp.com/BmsElfLOkC6DYTo4rqaQcf
+┃1: https://chat.whatsapp.com/BmsElfLOkC6DYTo4rqaQcf ⇚
 ╰━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━━━━━━━━━━━━━━━━━╾•
@@ -898,17 +897,50 @@ if (!isCreator) return reply(info.owner)
   break  
   
   case 'simi': case 'bot': {  
-     if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
+if (global.db.data.users[m.sender].registered < true) return reply(info.registra)  
   if (!text) return conn.sendMessage(from, { text: `*INGRESE UN TEXTO PARA HABLAR CONMIGO*`}, { quoted: msg })  
 await conn.sendPresenceUpdate('composing', m.chat) 
- let anu = await fetchJson(`https://api.simsimi.net/v2/?text=${text}&lc=es&cf=false`) 
- let res = anu.success; 
- m.reply(res)}
-
+ let gpt = await fetch(`https://delirius-api-oficial.vercel.app/api/simi?text=${text}`)
+let res = await gpt.json()
+await m.reply(res.data.message)}
   break   
+  
  case 'ia': case 'chatgpt': 
  await ia(conn, m, text, quoted) 
  break
+
+case 'chatgpt2': case 'ia2': {
+if (!text) return conn.sendMessage(from, { text: `Ejemplo: ${prefix + command} Recomienda un top 10 de películas de acción` }, { quoted: msg })   
+await conn.sendPresenceUpdate('composing', m.chat) 
+let gpt = await fetch(`https://delirius-api-oficial.vercel.app/api/ia2?text=${text}`);
+let res = await gpt.json()
+await m.reply(res.gpt)}
+break
+
+case 'gemini': {
+if (!text) return conn.sendMessage(from, { text: `Ejemplo: ${prefix + command} Recomienda un top 10 de películas de acción` }, { quoted: msg })  
+try {
+await conn.sendPresenceUpdate('composing', m.chat)
+let gpt = await fetch(global.API('fgmods', '/api/info/gemini', { text }, 'apikey'));
+let res = await gpt.json()
+await m.reply(res.result)
+} catch {
+try {
+let gpt = await fetch(`https://delirius-api-oficial.vercel.app/api/gemini?query=${text}`);
+let res = await gpt.json()
+await m.reply(res.message)
+} catch (e) {
+console.log(e)}}}
+break
+
+case 'copilot': case 'bing': {
+if (!text) return conn.sendMessage(from, { text: `Ejemplo: ${prefix + command} Recomienda un top 10 de películas de acción` }, { quoted: msg })  
+await conn.sendPresenceUpdate('composing', m.chat)
+let gpt = await fetch(`https://delirius-api-oficial.vercel.app/api/bingia?query=${text}`);
+let res = await gpt.json()
+await m.reply(res.message)}
+break
+
   case 'gay': {  
  await game1(conn, m, text, participants, sender)} 
  break            
