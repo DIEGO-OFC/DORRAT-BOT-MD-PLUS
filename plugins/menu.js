@@ -26,12 +26,12 @@ let wa = m.key.id.length > 21 ? 'Android' : m.key.id.substring(0, 2) == '3A' ? '
 return `*╭━━❍𝐃𝐎𝐑𝐑𝐀𝐓-𝐁𝐎𝐓-𝐌𝐃❍━━╮* 
  *┣━━━▢ ❤𝐇𝐎𝐋𝐀, @${sender.split("@")[0]} ❤*• 
  *┃╭━━━━━━━━━━━━━━━━╾•* 
- *┃┃  ❍ ${time} ❍* 
+ *┃┃  ❍ ${ucapan()} ❍* 
  *┃┣━━━━━━━━━━━━━━━━╾•* 
  *┃┃ ⋄ NUMERO DEL CREADOR: wa.me/528442286089 (𝐍𝐎 𝐁𝐎𝐓)* 
  *┃┃ ⋄ VERSION » ${vs}* 
- *┃┃ ⋄ FECHA » ${date}* 
- *┃┃ ⋄ TIEMPO ACTIVO » ${runtime(process.uptime())}
+ *┃┃ ⋄ FECHA » ${date} ${time}* 
+ *┃┃ ⋄ TIEMPO ACTIVO » ${runtime(process.uptime())}*
  *┃┃ ⋄ LIBRERIA » Bailleys*
  *┃┃ ⋄ USUARIOS » ${Object.keys(global.db.data.users).length}*
  *┃┃ ⋄ MODO » ${conn.public ? 'publico' : 'privado'}*
@@ -221,6 +221,30 @@ function pickRandom(list) {
 
     return list[Math.floor(list.length * Math.random())]
 
+}
+
+function ucapan() {
+  const time = moment.tz("America/Los_Angeles").format("HH"); //America/Los_Angeles  Asia/Jakarta   America/Toronto
+
+  let res = "🌉Buenas madrugadas";
+
+  if (time >= 4) {
+    res = "🌇Buenos Días";
+  }
+
+  if (time >= 11) {
+    res = "🏙️Buenas Tardes";
+  }
+
+  if (time >= 15) {
+    res = "🌆Buenas tardes";
+  }
+
+  if (time >= 17) {
+    res = "🌃Buenas noches";
+  }
+
+  return res;
 }
 
  let file = require.resolve(__filename)
