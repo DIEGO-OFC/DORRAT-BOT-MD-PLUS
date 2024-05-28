@@ -30,7 +30,7 @@ let stateRun = `╔═[ *∆.𝑫𝑶𝑹𝑹𝑯∆𝑻-𝑩𝑶𝑻.∆* ]
 [número del creador]:
 wa.me/528442286089`.trim()
 let ments = [me]        
-await conn.sendMessage(m.chat, {image: imagen1, caption: stateRun, mentionedJid:[sender]}, { quoted: fkontak })
+await conn.sendMessage(m.chat, {image: imagen1, caption: stateRun, mentions:[sender]}, { quoted: fkontak })
 }
   
 module.exports = { state }
