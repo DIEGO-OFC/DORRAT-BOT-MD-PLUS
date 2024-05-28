@@ -1,14 +1,14 @@
 {
-  "name": "DorratBot-MD",
+  "name": "DORRAT-BOT-MD",
   "version": "1.0.0",
-  "description": "Bot de whatsapp",
+  "description": "Subscribete al canal de YT DIEGOGAMEPLAYS82",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
   "start": "node index.js", 
   "qr": "node index.js qr",
   "code": "node index.js code" },
-  "author": "elrebelde21",
+  "author": "",
   "license": "ISC",
   "dependencies": {
    "@whiskeysockets/baileys": "^6.7.2",
