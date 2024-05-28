@@ -39,56 +39,55 @@ return `*╭━━❍𝐃𝐎𝐑𝐑𝐀𝐓-𝐁𝐎𝐓-𝐌𝐃❍━━╮*
  *╰━━━╼𝐃𝐎𝐑𝐑𝐀𝐓-𝐁𝐎𝐓-𝐌𝐃╾━━━╯* 
 
  ▧ 「 *I N F O R M A C I O N* 」  
- │ ‣ ︎ _${usedPrefix}grupos_ 
- │ ‣  _${usedPrefix}estado_ 
- │ ‣ ︎ _${usedPrefix}terminos_ 
- │ ‣  _${usedPrefix}instalarbot_ 
- │ ‣  _${usedPrefix}infobot_ 
- │ ‣  _${usedPrefix}grouplist_ 
- │ ‣  _${usedPrefix}owner_ 
- │ ‣  _${usedPrefix}script_ 
+ │ ‣ ︎ _${prefix}grupos_ 
+ │ ‣  _${prefix}estado_ 
+ │ ‣  _${prefix}instalarbot_ 
+ │ ‣  _${prefix}infobot_ 
+ │ ‣  _${prefix}grouplist_ 
+ │ ‣  _${prefix}owner_ 
+ │ ‣  _${prefix}script_ 
  │ ‣  _Bot_ (𝑢𝑠𝑜 𝑠𝑖𝑛 𝑝𝑟𝑒𝑓𝑖𝑗𝑜) 
  └──···
 
  ╔═════════════╗  
  ║ *<UNE UN BOT A TU GRUPO/>* 
  ║══════════════════ 
- ║ ➱_${usedPrefix}join *link del grupo*_  
+ ║ ➱_${prefix}join *link del grupo*_  
  ║ ➱_*minimo 30 miembros*_ 
  ╚════ ≪ •❈• ≫ ════╝ 
   
  ╔═════ JADIBOT 🤖 ═════╗  
- ║ ❒ ︎_${usedPrefix}serbot_ 
- ║ ❒ ︎_${usedPrefix}jadibot_
- ║ ❒ ︎_${usedPrefix}stop_ 
- ║ ❒ ︎_${usedPrefix}bots_ 
+ ║ ❒ ︎_${prefix}serbot_ 
+ ║ ❒ ︎_${prefix}jadibot_
+ ║ ❒ ︎_${prefix}stop_ 
+ ║ ❒ ︎_${prefix}bots_ 
  ╚════ ≪ •❈• ≫ ════╝ 
  
   ┌─「💻𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑」 
- ├➢${usedPrefix}videodocumento <enlace / link / url 
- ├➢${usedPrefix}fb <enlace / link / url 
- ├➢${usedPrefix}twitter *<enlace / link / url>*_
- ├➢${usedPrefix}xnxxdl *<enlace / link / url>*
- ├➢${usedPrefix}xvideosdl *<enlace / link / url>*
- ├➢${usedPrefix}instagram <enlace / link / url 
- ├➢${usedPrefix}mediafire <enlace / link / url 
- ├➢${usedPrefix}gdrive *<enlace / link / url>*
- ├➢${usedPrefix}gitclone <enlace / link / url 
- ├➢${usedPrefix}tiktok <enlace / link / url 
- ├➢${usedPrefix}ytmp3 <enlace / link / url 
- ├➢${usedPrefix}video <enlace / link / url 
- ├➢${usedPrefix}play.1 <texto / enlace / link / url 
- ├➢${usedPrefix}play.2 <texto / enlace / link / url 
- ├➢${usedPrefix}play <texto 
- ├➢${usedPrefix}spotify <texto 
- ├➢${usedPrefix}imagen <texto 
- ├➢${usedPrefix}pinteret <texto 
- ├➢${usedPrefix}wallpaper <texto 
- ├➢${usedPrefix}wallpaper2 <texto 
- ├➢${usedPrefix}pptiktok <nombre de usuario 
- ├➢${usedPrefix}igstalk <nombre de usuario 
- ├➢${usedPrefix}igstory *<nombre de usuario>*_
- ├➢${usedPrefix}tiktokstalk <nombre de usuario 
+ ├➢${prefix}videodocumento <enlace / link / url 
+ ├➢${prefix}fb <enlace / link / url 
+ ├➢${prefix}twitter *<enlace / link / url>*_
+ ├➢${prefix}xnxxdl *<enlace / link / url>*
+ ├➢${prefix}xvideosdl *<enlace / link / url>*
+ ├➢${prefix}instagram <enlace / link / url 
+ ├➢${prefix}mediafire <enlace / link / url 
+ ├➢${prefix}gdrive *<enlace / link / url>*
+ ├➢${prefix}gitclone <enlace / link / url 
+ ├➢${prefix}tiktok <enlace / link / url 
+ ├➢${prefix}ytmp3 <enlace / link / url 
+ ├➢${prefix}video <enlace / link / url 
+ ├➢${prefix}play.1 <texto / enlace / link / url 
+ ├➢${prefix}play.2 <texto / enlace / link / url 
+ ├➢${prefix}play <texto 
+ ├➢${prefix}spotify <texto 
+ ├➢${prefix}imagen <texto 
+ ├➢${prefix}pinteret <texto 
+ ├➢${prefix}wallpaper <texto 
+ ├➢${prefix}wallpaper2 <texto 
+ ├➢${prefix}pptiktok <nombre de usuario 
+ ├➢${prefix}igstalk <nombre de usuario 
+ ├➢${prefix}igstory *<nombre de usuario>*_
+ ├➢${prefix}tiktokstalk <nombre de usuario 
  └────ׂ─ׂ─ׂ─ׂ── 
 
 *╭─╮─᤻─᳒─᤻᳒᯽⃟ᰳᰬᰶ┈*🔰⃐ＧＲＵＰＯＳ*️⃟ᬽ፝֟━*
