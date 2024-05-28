@@ -6,10 +6,13 @@ const baileys = require('@whiskeysockets/baileys');
  const moment = require('moment-timezone')
  const {getBuffer, getSizeMedia} = require('./libs/fuctions.js')
  const chalk = require('chalk')  
-  
+
+global.botNumberCode = "" //Ejemplo: +59309090909
+global.phoneNumber = ""
+
  global.owner = [ 
- ["584125778026", "Owner", true] 
-   ] 
+ ["584125778026", "Owner", true]
+ ] 
   
  global.botname = "ᗪㄖ尺尺卂ㄒ-乃ㄖㄒ-爪ᗪ+" 
  global.wm = '🅓︎🅞︎🅡︎🅡︎🅐︎🅣︎-🅑︎🅞︎🅣︎+' 
