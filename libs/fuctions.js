@@ -1303,6 +1303,7 @@ if (!isNumber(user.bank)) user.bank = 0;
      await conn.sendMessage(jid, { audio: { url: audio }, fileName: 'error.mp3', mimetype: 'audio/mp4', ptt: true }, { quoted: quoted ? quoted : m }) 
      } 
   
+ m.react = (text, key, options) => conn.sendMessage(m.chat, { react: {text, key: m.key }})
   
      /** 
      * @param {*} jid 
