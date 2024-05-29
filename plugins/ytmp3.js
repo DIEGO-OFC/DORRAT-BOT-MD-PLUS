@@ -15,21 +15,21 @@ m.react("🚀")
 let vid = (await yts(text)).all[0]
 const yt_play = await search(args.join(" "))
 let { title, description, url, thumbnail, videoId, timestamp, views, published } = vid
-m.reply(`*Descarga sus audio ( ${yt_play[0].title})* espere...`) 
+m.reply(`*Descarga sus audio: ${yt_play[0].title}* espere...`) 
 const q = '128kbps';
 const v = yt_play[0].url;
 const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
 const dl_url = await yt.audio[q].download();
 const ttl = await yt.title;
 const size = await yt.audio[q].fileSizeH;
-await conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: 'audio/mpeg', fileName: `${ttl}.mp3`}, { quoted: m })
+await conn.sendMessage(m.chat, {document: {url: dl_url}, mimetype: 'audio/mpeg', fileName: `${ttl}.mp3`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
 m.react("✅") 
 } catch {
 try {
 const lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${lolkeysapi}&url=${yt_play[0].url}`);
 const lolh = await lolhuman.json();
 const n = lolh.result.title || 'error';
-await conn.sendMessage(m.chat, { audio: { url: lolh.result.link }, fileName: `${n}.mp3`, mimetype: 'audio/mpeg'}, { quoted: m })
+await conn.sendMessage(m.chat, {document: {url: lolh.result.link}, fileName: `${n}.mp3`, mimetype: 'audio/mpeg'}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
 m.react("✅") 
 } catch {
 try {
@@ -37,7 +37,7 @@ const searchh = await yts(yt_play[0].url);
 const __res = searchh.all.map((v) => v).filter((v) => v.type == 'video');
 const infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId);
 const ress = await ytdl.chooseFormat(infoo.formats, {filter: 'audioonly'});
-conn.sendMessage(m.chat, { audio: { url: ress.url }, fileName: __res[0].title + '.mp3', mimetype: 'audio/mp4'}, { quoted: m })
+conn.sendMessage(m.chat, {audio: {url: ress.url}, fileName: __res[0].title + '.mp3', mimetype: 'audio/mp4'}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100});
 m.react("✅") 
 } catch (e) {
 m.reply(`❌Error`) 
