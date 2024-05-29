@@ -28,6 +28,7 @@ const { default: makeWASocket, proto } = require("@whiskeysockets/baileys")
 const JavaScriptObfuscator = require('javascript-obfuscator')
 
 const { play } = require('./plugins/play.js') 
+const { mp3 } = require('./plugins/ytmp3.js') 
   const { youtube } = require("@xct007/frieren-scraper")  
   const { jadibot2 } = require('./serbot2.js')  
   const speed = require("performance-now")  
@@ -477,7 +478,7 @@ title: `╦══════════════════ ⪨
 ┃│✾ ⋟ *#menucompleto*
 ┃╰══ ⪨`, 
 subtitle: 'xdd', 
-hasMediaAttachment: false }), 
+hasMediaAttachment: false }),  
 nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({ 
 buttons: [ { "name": "quick_reply", 
 "buttonParamsJson": `{"display_text":"🌐 menucompleto","id":".allmenu"}` }, { 
@@ -1836,10 +1837,9 @@ break
 case 'lb': 
 lb(conn, participants, args, m)
 break
-case 'ytmp3': {
- if (!text) return m.reply(`Ejemplo: *${prefix + command}* https://youtube.com/watch?v=xYQgNZ14G_Q`)
-const xnx = `https://xanax-apis.online/youtube/mp3?url=${text}&apitoken=xanax-apis`
-conn.sendMessage(m.chat, { audio: { url: xnx }, fileName: 'xd.mp3', mimetype: 'audio/mp4' }, { quoted: m })}
+
+case "ytmp3": case "ytaudio":
+await mp3(conn, m, command, text, args)  
 break
 
 
