@@ -705,7 +705,30 @@ break
   let result = args[0].split('https://chat.whatsapp.com/')[1]  
   await conn.groupAcceptInvite(result).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))}  
   break  
-  
+
+case 'speedtest': case 'speed': {
+const cp = require('child_process') 
+const {promisify} = require('util') 
+const exec = promisify(cp.exec).bind(cp);
+let o;
+conn.fakeReply(m.chat, `Prueba de velocidad...`, '0@s.whatsapp.net', 'test')
+	try {
+o = await exec('python3 speed.py --secure --share');
+const {stdout, stderr} = o;
+if (stdout.trim()) {
+const match = stdout.match(/http[^"]+\.png/);
+const urlImagen = match ? match[0] : null;
+await conn.sendMessage(m.chat, {image: {url: urlImagen}, caption: stdout.trim()}, {quoted: m})}
+if (stderr.trim()) { 
+const match2 = stderr.match(/http[^"]+\.png/);
+const urlImagen2 = match2 ? match2[0] : null;    
+await conn.sendMessage(m.chat, {image: {url: urlImagen2}, caption: stderr.trim()}, {quoted: m});
+}} catch (e) {
+o = e.message;
+return m.reply(o)
+console.log(e)}}
+break 
+		  
   case 'hidetag': {  
   if (!m.isGroup) return reply(info.group)   
   if (!isBotAdmins) return reply(info.botAdmin)  
